@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MADRID SHAKIRA">
+<title>Carnet de voyage - MADRID SHAKIRA</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#1A1714">
+<style>
+/* ============================================================
+   CARNET DE VOYAGE — Design "Washi & Sumi"
+   Refonte visuelle premium. Tous les sélecteurs requis par
+   le JS sont conservés à l'identique (.scr, .dc, .ch, .tl,
+   .chk-*, .resa-*, .nb, .vc, .hr2, etc.).
+   ============================================================ */
+
+:root{
+  --ink:#1A1714;          /* noir sumi chaud */
+  --ink-soft:#3A332C;
+  --paper:#F6F1E7;        /* washi crème */
+  --paper-2:#FBF8F0;
+  --paper-card:#FFFEFA;
+  --gold:#B8923D;         /* or laqué */
+  --gold-deep:#9A7A2E;
+  --gold-soft:#EFE4C6;
+  --gold-tint:#F7EFD9;
+  --line:#E6DCC6;
+  --muted:#8C8275;
+  --muted-2:#A89E8E;
+  /* accents villes (conservés depuis les données) */
+  --c-sg:#2A6B7C; --c-osaka:#C8573F; --c-kyoto:#5B3A7E; --c-tokyo:#1A1714;
+  --shadow-sm:0 1px 2px rgba(26,23,20,.04),0 2px 8px rgba(26,23,20,.06);
+  --shadow-md:0 4px 14px rgba(26,23,20,.10),0 1px 3px rgba(26,23,20,.06);
+  --shadow-lg:0 12px 40px rgba(26,23,20,.18);
+  --r:16px; --r-lg:20px; --r-sm:12px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-spring:cubic-bezier(.34,1.4,.64,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%}
+body{
+  font-family:'Hiragino Mincho ProN','Yu Mincho',Georgia,'Times New Roman',serif;
+  background:var(--ink);height:100%;overflow:hidden;color:var(--ink);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+/* police sans pour les chiffres / UI dense */
+.ui-sans{font-family:-apple-system,'SF Pro Text','Helvetica Neue',sans-serif}
+
+/* grain de papier réutilisable */
+@keyframes grainShift{0%,100%{transform:translate(0,0)}50%{transform:translate(-2%,1%)}}
+
+/* ============================== COVER ============================== */
+#cover{
+  position:fixed;inset:0;z-index:999;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #2A2520 0%, var(--ink) 55%),
+    var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:max(env(safe-area-inset-top),30px) 26px max(env(safe-area-inset-bottom),30px);
+  gap:0;overflow:hidden;
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+}
+#cover::before{ /* halo doré */
+  content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);
+  width:140%;height:70%;
+  background:radial-gradient(closest-side,rgba(184,146,61,.16),transparent 70%);
+  pointer-events:none;
+}
+#cover::after{ /* grain */
+  content:"";position:absolute;inset:-50px;opacity:.05;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainShift 8s steps(2) infinite;
+}
+#cover.gone{opacity:0;transform:scale(1.04);pointer-events:none}
+#cover>*{position:relative;z-index:1;opacity:0;animation:coverIn .8s var(--ease) forwards}
+@keyframes coverIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#mtoLogo{animation-delay:.05s}#cv-line-top{animation-delay:.12s}
+.cv-tag{animation-delay:.18s}
+.cv-big:nth-of-type(1){animation-delay:.24s}
+.cv-amp{animation-delay:.30s}
+.cv-big:nth-of-type(2){animation-delay:.36s}
+.cv-line{animation-delay:.42s}.cv-date{animation-delay:.46s}
+.cv-stats{animation-delay:.54s}.cv-route{animation-delay:.62s}
+#countdown{animation-delay:.70s}#startBtn{animation-delay:.78s}
+#mtoLogo{margin:0 auto 18px;display:block;max-width:88%}
+
+.cv-tag{font-family:-apple-system,sans-serif;font-size:10px;font-weight:600;letter-spacing:6px;color:var(--gold);text-transform:uppercase;margin-bottom:22px;padding-left:6px}
+.cv-big{font-size:clamp(46px,15vw,72px);font-weight:400;color:#fff;line-height:.92;text-align:center;letter-spacing:2px}
+.cv-amp{font-size:24px;color:var(--gold);margin:6px 0;font-style:italic}
+.cv-line{width:48px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px auto;position:relative}
+.cv-line::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(45deg);width:6px;height:6px;background:var(--gold)}
+.cv-date{font-family:-apple-system,sans-serif;font-size:11px;font-weight:600;color:var(--gold-soft);letter-spacing:4px}
+.cv-stats{display:flex;gap:9px;margin-top:26px}
+.cv-stat{background:rgba(255,255,255,.04);border:1px solid rgba(184,146,61,.25);border-radius:14px;padding:13px 16px;text-align:center;backdrop-filter:blur(6px)}
+.cv-sn{font-family:-apple-system,sans-serif;font-size:26px;font-weight:700;color:var(--gold);line-height:1}
+.cv-sl{font-family:-apple-system,sans-serif;font-size:8px;font-weight:600;color:var(--muted-2);text-transform:uppercase;letter-spacing:1.5px;margin-top:5px}
+.cv-route{display:flex;align-items:center;gap:6px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.cv-route span{font-family:-apple-system,sans-serif;font-size:9px;font-weight:600;letter-spacing:1.5px;color:var(--muted-2);text-transform:uppercase}
+.cv-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);flex-shrink:0;opacity:.6}
+.cv-hl{color:var(--gold-soft) !important}
+#startBtn{
+  margin-top:34px;background:linear-gradient(180deg,var(--gold),var(--gold-deep));
+  color:var(--ink);border:none;border-radius:50px;padding:17px 46px;
+  font-family:-apple-system,sans-serif;font-size:15px;font-weight:700;letter-spacing:.5px;
+  cursor:pointer;-webkit-appearance:none;appearance:none;display:block;
+  box-shadow:0 10px 30px rgba(184,146,61,.35);transition:transform .2s var(--ease-spring),box-shadow .2s;
+}
+#startBtn:active{transform:scale(.96);box-shadow:0 4px 14px rgba(184,146,61,.3)}
+#countdown div[style*="JOURS"],#countdown div[style*="HEURES"],#countdown div[style*="MINUTES"]{font-family:-apple-system,sans-serif}
+
+/* ============================== APP SHELL ============================== */
+#app{display:none;height:100dvh;flex-direction:column;overflow:hidden;background:var(--paper)}
+
+/* TOP BAR */
+#topbar{
+  background:linear-gradient(180deg,#211D19,var(--ink));
+  padding:calc(env(safe-area-inset-top,12px) + 13px) 16px 13px;
+  display:flex;align-items:center;gap:9px;flex-shrink:0;position:relative;
+  box-shadow:0 1px 0 rgba(184,146,61,.25),0 6px 20px rgba(0,0,0,.25);
+}
+#topbar button{font-family:-apple-system,sans-serif;transition:transform .18s var(--ease-spring),background .18s;flex-shrink:0}
+@media (max-width:430px){
+  #topbar{gap:6px;padding-left:12px;padding-right:12px}
+  #backBtn,#prevBtn,#nextBtn{padding:8px 10px;font-size:12px}
+  #homeBtn{padding:8px 9px!important}
+  #topTitle{font-size:16px}
+  #topLogo{width:68px;height:30px}
+}
+#topbar button:active{transform:scale(.92)}
+#homeBtn{background:rgba(184,146,61,.14)!important;border:1px solid rgba(184,146,61,.25)!important;border-radius:11px!important;color:var(--gold)!important}
+#backBtn{background:rgba(184,146,61,.14);border:1px solid rgba(184,146,61,.25);border-radius:11px;padding:9px 13px;color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;display:none}
+#backBtn.show{display:block}
+#prevBtn{border-radius:11px!important;background:rgba(184,146,61,.14)!important;border:1px solid rgba(184,146,61,.25)!important;color:var(--gold)!important}
+#nextBtn{background:linear-gradient(180deg,var(--gold),var(--gold-deep));border:none;border-radius:11px;padding:9px 13px;color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;display:none;white-space:nowrap}
+#nextBtn.show{display:block}
+#topTitle{flex:1;font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:18px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.3px}
+#topSub{font-family:-apple-system,sans-serif;font-size:9px;color:var(--gold);letter-spacing:2px;font-weight:600;text-transform:uppercase}
+
+.prog{background:rgba(26,23,20,.08);height:2px;flex-shrink:0}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold-deep),var(--gold));width:0%;transition:width .5s var(--ease)}
+
+/* BOTTOM NAV */
+#bnav{
+  background:linear-gradient(180deg,var(--paper-2),var(--paper));
+  border-top:1px solid var(--line);
+  display:flex;padding-bottom:env(safe-area-inset-bottom,0px);flex-shrink:0;
+  box-shadow:0 -4px 20px rgba(26,23,20,.05);
+}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;padding:11px 4px 9px;gap:4px;cursor:pointer;border:none;background:none;position:relative;transition:transform .18s var(--ease-spring)}
+.nb:active{transform:scale(.9)}
+.nb-i{font-size:19px;color:var(--muted-2);transition:color .25s,transform .25s var(--ease-spring);filter:grayscale(.4) opacity(.7)}
+.nb-l{font-family:-apple-system,sans-serif;font-size:9px;font-weight:600;letter-spacing:.3px;color:var(--muted-2);text-transform:uppercase;transition:color .25s}
+.nb.on .nb-i{color:var(--gold);transform:translateY(-2px);filter:none}
+.nb.on .nb-l{color:var(--gold-deep)}
+.nb.on::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:22px;height:2px;border-radius:2px;background:var(--gold)}
+
+/* MAIN + screen transitions */
+#main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--paper);position:relative}
+#main::before{ /* texture papier subtile */
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(rgba(184,146,61,.04) 1px,transparent 1px);
+  background-size:22px 22px;
+}
+.scr{display:none;min-height:100%;position:relative;z-index:1}
+.scr.on{display:block;animation:scrIn .42s var(--ease)}
+@keyframes scrIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ============================== DAYS LIST ============================== */
+.dw{padding:16px 14px 28px;display:flex;flex-direction:column;gap:10px}
+.ch{
+  background:linear-gradient(135deg,#221E1A,var(--ink));
+  border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;gap:13px;
+  margin-top:8px;position:relative;overflow:hidden;box-shadow:var(--shadow-md);
+}
+.ch:first-child{margin-top:0}
+.ch::after{content:"";position:absolute;right:-20px;top:-20px;width:90px;height:90px;border-radius:50%;background:radial-gradient(closest-side,rgba(184,146,61,.18),transparent)}
+.ch-n{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.ch-nn{font-family:-apple-system,sans-serif;font-size:19px;font-weight:800;color:#fff}
+.ch-city{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:21px;font-weight:600;color:#fff;letter-spacing:1px}
+.ch-d{font-family:-apple-system,sans-serif;font-size:10px;font-weight:600;margin-top:3px;letter-spacing:1px;text-transform:uppercase;opacity:.9}
+
+.dc{
+  background:var(--paper-card);border-radius:var(--r);overflow:hidden;cursor:pointer;
+  box-shadow:var(--shadow-sm);border:1px solid var(--line);
+  transition:transform .2s var(--ease-spring),box-shadow .2s;
+}
+.dc:active{transform:scale(.985);box-shadow:var(--shadow-md)}
+.dc-top{display:flex;align-items:center;gap:12px;padding:14px 15px;border-bottom:1px solid var(--line)}
+.db{width:42px;height:42px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 8px rgba(26,23,20,.18)}
+.db-j{font-family:-apple-system,sans-serif;font-size:6px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:1.5px}
+.db-n{font-family:-apple-system,sans-serif;font-size:17px;font-weight:800;color:#fff;line-height:1}
+.di{flex:1;min-width:0}
+.di-d{font-family:-apple-system,sans-serif;font-size:13px;font-weight:700;color:var(--ink);letter-spacing:.3px;display:flex;align-items:center;flex-wrap:wrap}
+.di-l{font-size:13px;color:var(--ink-soft);font-weight:400;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-style:italic;opacity:.85}
+.dh{font-family:-apple-system,sans-serif;font-size:9px;padding:5px 9px;border-radius:20px;font-weight:600;white-space:nowrap;flex-shrink:0;color:#fff;text-align:center;max-width:104px;line-height:1.3;box-shadow:0 2px 6px rgba(26,23,20,.12)}
+.dp{padding:9px 15px 13px;display:flex;gap:5px;flex-wrap:wrap}
+.pl{font-family:-apple-system,sans-serif;font-size:10px;padding:4px 11px;border-radius:20px;font-weight:600;letter-spacing:.2px}
+.t-tp{background:#E7F0F2;color:var(--c-sg)}
+.t-ac{background:var(--gold-tint);color:var(--gold-deep)}
+.t-me{background:#FBEAE5;color:var(--c-osaka)}
+.t-sh{background:#F0EAF6;color:var(--c-kyoto)}
+.t-ht{background:#E8F1EB;color:#2E6B3E}
+.pm{font-family:-apple-system,sans-serif;font-size:10px;color:var(--muted-2);padding:4px 6px;font-weight:600}
+.tb{font-family:-apple-system,sans-serif;background:linear-gradient(180deg,var(--gold),var(--gold-deep));color:var(--ink);font-size:8px;font-weight:700;padding:3px 8px;border-radius:20px;margin-left:7px;letter-spacing:.5px;box-shadow:0 2px 6px rgba(184,146,61,.4)}
+
+/* ============================== DAY DETAIL HEADER ============================== */
+.dh2{padding:11px 16px 11px;position:sticky;top:0;z-index:20;box-shadow:0 4px 16px rgba(26,23,20,.18)}
+.dhr{display:flex;align-items:center;gap:11px}
+.dbg{width:40px;height:40px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px solid rgba(255,255,255,.35);flex-shrink:0;backdrop-filter:blur(4px)}
+.dbg-j{font-family:-apple-system,sans-serif;font-size:6px;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:1.5px}
+.dbg-n{font-family:-apple-system,sans-serif;font-size:17px;font-weight:800;color:#fff;line-height:1}
+.dd{flex:1;min-width:0}
+.dd-d{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:16px;font-weight:600;color:#fff;letter-spacing:.5px;line-height:1.1}
+.dd-s{font-size:12px;color:rgba(255,255,255,.8);margin-top:1px;font-style:italic;line-height:1.2}
+.dd-l{font-family:-apple-system,sans-serif;font-size:9px;font-weight:600;letter-spacing:1.2px;margin-top:3px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dhp{font-family:-apple-system,sans-serif;font-size:9px;font-weight:600;padding:5px 9px;border-radius:20px;background:rgba(255,255,255,.18);color:#fff;text-align:center;flex-shrink:0;max-width:104px;line-height:1.25;border:1px solid rgba(255,255,255,.2)}
+
+/* ============================== TIMELINE ============================== */
+.tl{padding:16px 14px 28px;display:flex;flex-direction:column}
+.tr{display:flex;gap:12px;animation:tlIn .5s var(--ease) both}
+.tr:nth-child(1){animation-delay:.03s}.tr:nth-child(2){animation-delay:.08s}
+.tr:nth-child(3){animation-delay:.13s}.tr:nth-child(4){animation-delay:.18s}
+.tr:nth-child(5){animation-delay:.23s}.tr:nth-child(6){animation-delay:.28s}
+.tr:nth-child(7){animation-delay:.33s}.tr:nth-child(8){animation-delay:.38s}
+@keyframes tlIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+.tll{display:flex;flex-direction:column;align-items:center;width:16px;flex-shrink:0}
+.tld{width:13px;height:13px;border-radius:50%;flex-shrink:0;margin-top:16px;box-shadow:0 0 0 4px var(--paper),0 0 0 5px currentColor}
+.tlln{width:2px;flex:1;min-height:10px}
+.tc{flex:1;border-radius:var(--r);padding:13px 13px 11px;margin-bottom:11px;position:relative;box-shadow:var(--shadow-sm);border:1px solid rgba(26,23,20,.04)}
+.tt{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:5px;font-variant-numeric:tabular-nums}
+.tti{font-size:15px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:6px;padding-right:80px}
+.tb2{font-size:13px;color:var(--ink-soft);line-height:1.55}
+.tc2{font-family:-apple-system,sans-serif;position:absolute;top:11px;right:11px;font-size:10px;font-weight:700;padding:4px 9px;border-radius:20px;white-space:nowrap;max-width:88px;overflow:hidden;text-overflow:ellipsis;text-align:center}
+
+/* boutons d'action (Maps, Uber, etc.) — police sans + ressort */
+.maps-btn,.info-btn,.share-btn,.walk-btn,.uber-btn,.grab-btn,.boat-btn,.train-btn,.plane-btn,.cal-btn{
+  font-family:-apple-system,sans-serif;display:inline-flex;align-items:center;gap:5px;margin-top:9px;
+  border:none;border-radius:20px;padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;
+  text-decoration:none;-webkit-appearance:none;transition:transform .15s var(--ease-spring),filter .15s;
+}
+.maps-btn:active,.info-btn:active,.share-btn:active,.uber-btn:active,.grab-btn:active,.plane-btn:active,.cal-btn:active{transform:scale(.94)}
+.maps-btn{background:#E7F0F2;color:var(--c-sg)}
+.info-btn{background:linear-gradient(180deg,#6B4894,var(--c-kyoto));color:#fff}
+.share-btn{background:#E7F0F2;color:var(--c-sg)}
+.walk-btn{background:var(--gold-tint);color:var(--gold-deep);cursor:default}
+.uber-btn{background:var(--ink);color:#fff}
+.grab-btn{background:#00B14F;color:#fff}
+.boat-btn{background:#E7F0F2;color:var(--c-sg);cursor:default}
+.train-btn{background:#E7F0F2;color:var(--c-sg);cursor:default}
+button.train-btn[data-goto-train]{cursor:pointer;border:none}
+.plane-btn{background:#F0EAF6;color:var(--c-kyoto)}
+.cal-btn{background:#E8F1EB;color:#2E6B3E}
+
+/* info sheet (popup détail) */
+.info-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(26,23,20,.5);backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
+.info-overlay.open{display:flex}
+.info-sheet{background:var(--paper-card);border-radius:24px 24px 0 0;padding:22px 22px 38px;max-height:75vh;overflow-y:auto;width:100%;max-width:480px;box-shadow:var(--shadow-lg);animation:sheetUp .4s var(--ease)}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.info-sheet-title{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:14px;padding-right:32px;line-height:1.4}
+.info-sheet-body{font-size:14px;color:var(--ink-soft);line-height:1.75;white-space:pre-wrap}
+.info-sheet-close{position:absolute;top:16px;right:16px;background:var(--gold-tint);border:none;border-radius:50%;width:30px;height:30px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gold-deep)}
+.info-sheet-header{position:relative}
+
+/* couleurs par type d'événement (timeline) */
+.tp .tc{background:#EEF5F7}.tp .tld{background:var(--c-sg);color:#fff}.tp .tlln{background:rgba(42,107,124,.25)}.tp .tt{color:var(--c-sg)}.tp .tc2{background:var(--c-sg);color:#fff}
+.ta .tc{background:var(--gold-tint)}.ta .tld{background:var(--gold);color:#fff}.ta .tlln{background:rgba(184,146,61,.3)}.ta .tt{color:var(--gold-deep)}.ta .tc2{background:linear-gradient(180deg,var(--gold),var(--gold-deep));color:var(--ink)}
+.tm .tc{background:#FBEDE9}.tm .tld{background:var(--c-osaka);color:#fff}.tm .tlln{background:rgba(200,87,63,.25)}.tm .tt{color:var(--c-osaka)}.tm .tc2{background:var(--c-osaka);color:#fff}
+.th .tc{background:#EAF3ED}.th .tld{background:#2E6B3E;color:#fff}.th .tlln{background:rgba(46,107,62,.25)}.th .tt{color:#2E6B3E}.th .tc2{background:#2E6B3E;color:#fff}
+.ts .tc{background:#F2ECF8}.ts .tld{background:var(--c-kyoto);color:#fff}.ts .tlln{background:rgba(91,58,126,.25)}.ts .tt{color:var(--c-kyoto)}.ts .tc2{background:var(--c-kyoto);color:#fff}
+
+.tipb{background:linear-gradient(135deg,var(--gold-tint),var(--paper-2));border-left:3px solid var(--gold);border-radius:var(--r-sm);padding:13px 15px;margin:6px 0 12px;box-shadow:var(--shadow-sm)}
+.tipl{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;color:var(--gold-deep);letter-spacing:1.5px;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.tipl::before{content:"✦"}
+.tipt{font-size:13px;color:var(--ink-soft);line-height:1.55}
+.noteb{background:linear-gradient(135deg,#221E1A,var(--ink));border-radius:var(--r-sm);padding:14px 16px;margin-bottom:22px;box-shadow:var(--shadow-md)}
+.notel{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:1.5px;margin-bottom:4px}
+.notet{font-size:13px;color:#D9D0C2;line-height:1.5;font-style:italic}
+
+/* ============================== INFO SCREEN ============================== */
+.iw{padding:16px 14px 28px}
+.st{font-family:-apple-system,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);padding:18px 0 10px;display:flex;align-items:center;gap:10px}
+.st::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(184,146,61,.4),transparent)}
+.vc{background:var(--paper-card);border-radius:var(--r);overflow:hidden;margin-bottom:11px;border:1px solid var(--line);border-left:3px solid var(--gold);box-shadow:var(--shadow-sm)}
+.vi{padding:14px 15px}
+.vt{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;color:var(--gold-deep);letter-spacing:1.5px;margin-bottom:5px}
+.vr{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.vd{font-size:12px;color:var(--ink-soft);line-height:1.5}
+.vo{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;color:#2E6B3E;margin-top:5px;display:inline-flex;align-items:center;gap:4px}
+.vo::before{content:"●";font-size:8px}
+.hl{background:var(--paper-card);border-radius:var(--r);overflow:hidden;margin-bottom:13px;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.hr2{padding:13px 15px;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:flex-start}
+.hr2:last-child{border-bottom:none}
+.hn{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:14px;font-weight:600;color:var(--ink)}
+.hs{font-family:-apple-system,sans-serif;font-size:10px;color:var(--gold-deep);font-weight:600;margin-top:2px;letter-spacing:.5px}
+.ha{font-size:12px;color:var(--ink-soft);margin-top:2px}
+.href{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;color:var(--c-kyoto);white-space:nowrap}
+.rc{background:var(--paper-card);border-radius:var(--r);overflow:hidden;margin-bottom:11px;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.rh{padding:13px 15px 9px;display:flex;gap:11px;align-items:flex-start}
+.rd{font-family:-apple-system,sans-serif;padding:4px 11px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0;color:#fff}
+.rn{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:15px;font-weight:600;color:var(--ink);line-height:1.3}
+.rdt{font-size:12px;color:var(--ink-soft);margin-top:3px;line-height:1.45}
+.rf{font-family:-apple-system,sans-serif;padding:9px 15px 11px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.trl{background:var(--paper-card);border-radius:var(--r);overflow:hidden;margin-bottom:22px;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.trr{padding:13px 15px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:11px}
+.trr:last-child{border-bottom:none}
+.trl2{font-family:-apple-system,sans-serif;font-size:13px;font-weight:600;color:var(--ink)}
+.trv{font-size:12px;color:var(--ink-soft);text-align:right;max-width:55%;line-height:1.45}
+
+/* ============================== TIPS / TOOLS ============================== */
+.tw{padding:16px 14px 28px}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:4px}
+.mc{background:var(--paper-card);border-radius:var(--r);padding:13px 8px;text-align:center;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.mcir{width:52px;height:52px;border-radius:50%;margin:0 auto 9px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(26,23,20,.15)}
+.mct{font-family:-apple-system,sans-serif;font-size:14px;font-weight:800;color:#fff}
+.mcc{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.mch{font-size:9px;color:var(--ink-soft);line-height:1.4}
+.phl{display:flex;flex-direction:column;gap:7px;margin-bottom:4px}
+.phr{background:var(--paper-card);border-radius:var(--r-sm);padding:12px 15px;display:flex;justify-content:space-between;align-items:center;gap:9px;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.phj{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:14px;font-weight:600;color:var(--ink)}
+.phf{font-size:12px;color:var(--ink-soft);font-style:italic;text-align:right}
+.el{display:flex;flex-direction:column;gap:7px;margin-bottom:22px}
+.er{background:var(--paper-card);border-radius:var(--r-sm);padding:13px 15px;display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.edd{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;box-shadow:0 0 0 3px var(--gold-tint)}
+.ela{font-family:-apple-system,sans-serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.elv{font-size:12px;color:var(--ink-soft);line-height:1.45}
+
+.search-wrap{padding:14px 14px 4px;position:sticky;top:0;background:var(--paper);z-index:10}
+.search-input{font-family:-apple-system,sans-serif;width:100%;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:11px 14px 11px 38px;font-size:14px;color:var(--ink);outline:none;-webkit-appearance:none;background:var(--paper-card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23B8923D' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.868-3.833zm-5.242 1.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E") no-repeat 13px center;background-size:16px;transition:border-color .2s}
+.search-input:focus{border-color:var(--gold)}
+.no-result{text-align:center;padding:40px 20px;color:var(--muted-2);font-size:13px;font-style:italic}
+::-webkit-scrollbar{width:0}
+
+/* ============================== RESA MODALS ============================== */
+.resa-modal{display:none;position:fixed;inset:0;z-index:99999;background:rgba(26,23,20,.5);backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
+.resa-modal.open{display:flex}
+.resa-sheet{background:var(--paper-card);border-radius:24px 24px 0 0;padding:22px 22px 40px;width:100%;max-width:480px;position:relative;box-shadow:var(--shadow-lg);animation:sheetUp .4s var(--ease)}
+.resa-sheet-title{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:16px;padding-right:36px}
+.resa-field{margin-bottom:13px}
+.resa-field label{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;color:var(--muted-2);letter-spacing:1.2px;display:block;margin-bottom:6px}
+.resa-field input{font-family:-apple-system,sans-serif;width:100%;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:11px 13px;font-size:14px;color:var(--ink);outline:none;-webkit-appearance:none;box-sizing:border-box;transition:border-color .2s;background:var(--paper-2)}
+.resa-field input:focus{border-color:var(--gold);background:#fff}
+.resa-save-btn{font-family:-apple-system,sans-serif;width:100%;background:linear-gradient(180deg,var(--gold),var(--gold-deep));color:var(--ink);border:none;border-radius:var(--r-sm);padding:15px;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;box-shadow:0 8px 22px rgba(184,146,61,.3);transition:transform .18s var(--ease-spring)}
+.resa-save-btn:active{transform:scale(.97)}
+.chk-refnum{font-family:-apple-system,sans-serif;font-size:10px;font-weight:600;color:var(--c-sg);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chk-infobadge{font-family:-apple-system,sans-serif;display:inline-flex;align-items:center;gap:4px;background:#E7F0F2;color:var(--c-sg);border-radius:20px;padding:3px 9px;font-size:10px;font-weight:600;margin-top:5px;cursor:pointer}
+.chk-viewbtn{font-family:-apple-system,sans-serif;display:none;align-items:center;gap:5px;background:#F0EAF6;color:var(--c-kyoto);border:none;border-radius:20px;padding:5px 11px;font-size:10px;font-weight:700;cursor:pointer;margin-top:5px;margin-left:5px}
+.resa-details-popup{display:none;position:fixed;inset:0;z-index:99999;background:rgba(26,23,20,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px}
+.resa-details-popup.open{display:flex}
+.resa-details-card{background:var(--paper-card);border-radius:var(--r-lg);padding:22px;width:100%;max-width:380px;position:relative;box-shadow:var(--shadow-lg);animation:popIn .35s var(--ease-spring)}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+.resa-details-name{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:16px;padding-right:32px}
+.resa-detail-row{display:flex;flex-direction:column;gap:3px;padding:11px 0;border-bottom:1px solid var(--line)}
+.resa-detail-row:last-child{border-bottom:none}
+.resa-detail-label{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;color:var(--muted-2);letter-spacing:1.2px}
+.resa-detail-value{font-size:14px;font-weight:600;color:var(--ink)}
+.resa-edit-btn{font-family:-apple-system,sans-serif;width:100%;background:linear-gradient(180deg,var(--gold),var(--gold-deep));color:var(--ink);border:none;border-radius:var(--r-sm);padding:13px;font-size:13px;font-weight:700;cursor:pointer;margin-top:14px;transition:transform .18s var(--ease-spring)}
+.resa-edit-btn:active{transform:scale(.97)}
+.chk-card{background:var(--paper-card);border-radius:var(--r);overflow:hidden;margin-bottom:11px;box-shadow:var(--shadow-sm);border:1px solid var(--line)}
+.chk-head{background:linear-gradient(135deg,#221E1A,var(--ink));padding:13px 16px;display:flex;align-items:center;justify-content:space-between}
+.chk-title{font-family:-apple-system,sans-serif;font-size:12px;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase}
+.chk-progress{font-family:-apple-system,sans-serif;font-size:11px;color:var(--gold);font-weight:700}
+.chk-item{display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s}
+.chk-item:last-child{border-bottom:none}
+.chk-item:active{background:var(--paper-2)}
+.chk-box{width:24px;height:24px;border-radius:8px;border:2px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .25s var(--ease-spring)}
+.chk-box.done{background:#2E6B3E;border-color:#2E6B3E;transform:scale(1.05)}
+.chk-check{color:#fff;font-size:13px;font-weight:700;display:none}
+.chk-box.done .chk-check{display:block}
+.chk-info{flex:1;min-width:0}
+.chk-name{font-family:'Hiragino Mincho ProN',Georgia,serif;font-size:14px;font-weight:600;color:var(--ink);transition:color .2s}
+.chk-name.done{color:var(--muted-2);text-decoration:line-through}
+.chk-date{font-family:-apple-system,sans-serif;font-size:11px;color:var(--muted-2);margin-top:2px}
+.chk-deadline{font-family:-apple-system,sans-serif;font-size:10px;font-weight:700;margin-top:2px}
+
+/* boutons devises / onglets tailles (stylés par JS inline, on raffine au survol) */
+.cur-btn{transition:transform .15s var(--ease-spring)}
+.cur-btn:active{transform:scale(.92)}
+.size-tab{transition:background .2s,color .2s}
+
+/* SCROLL TO TOP — fonctionne désormais (bouton ajouté au DOM) */
+.scroll-top{position:fixed;bottom:calc(72px + env(safe-area-inset-bottom,0px));right:16px;width:44px;height:44px;border-radius:50%;background:linear-gradient(180deg,var(--gold),var(--gold-deep));color:var(--ink);border:none;font-size:18px;cursor:pointer;box-shadow:0 6px 20px rgba(184,146,61,.45);display:none;align-items:center;justify-content:center;z-index:200;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s var(--ease-spring)}
+.scroll-top.show{display:flex;opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="cover">
+  <svg id="mtoLogo" width="340" viewBox="0 0 520 130" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Morieux Tour Operator">
+    <g font-family="'Hiragino Mincho ProN','Yu Mincho',Georgia,serif" font-weight="700">
+      <text x="58" y="86" text-anchor="middle" font-size="74" fill="#F6F1E7" letter-spacing="-2">M</text>
+      <text x="116" y="86" text-anchor="middle" font-size="74" fill="#B8923D" letter-spacing="-2">T</text>
+    </g>
+    <circle cx="190" cy="62" r="37" fill="none" stroke="#F6F1E7" stroke-width="5"/>
+    <circle cx="190" cy="62" r="25" fill="none" stroke="#B8923D" stroke-width="1.2"/>
+    <g font-family="-apple-system,'Helvetica Neue',sans-serif" font-size="9" font-weight="700" fill="#EFE4C6">
+      <text x="190" y="46" text-anchor="middle">N</text>
+      <text x="190" y="86" text-anchor="middle">S</text>
+      <text x="212" y="65" text-anchor="middle">E</text>
+      <text x="168" y="65" text-anchor="middle">O</text>
+    </g>
+    <g transform="rotate(38 190 62)">
+      <polygon points="190,40 195,62 190,84 185,62" fill="#B8923D"/>
+      <polygon points="190,40 190,62 185,62" fill="#EFE4C6"/>
+      <circle cx="190" cy="62" r="2.8" fill="#1A1714" stroke="#F6F1E7" stroke-width="1"/>
+    </g>
+    <line x1="248" y1="30" x2="248" y2="94" stroke="#B8923D" stroke-width="1" opacity="0.5"/>
+    <text x="270" y="58" font-family="'Hiragino Mincho ProN','Yu Mincho',Georgia,serif" font-size="22" font-weight="700" letter-spacing="4" fill="#EFE4C6">MORIEUX</text>
+    <text x="272" y="82" font-family="-apple-system,'Helvetica Neue',sans-serif" font-size="11" letter-spacing="7" fill="#A89E8E">TOUR OPERATOR</text>
+  </svg>
+  <div class="cv-line" id="cv-line-top"></div>
+  <div class="cv-tag">Carnet de Voyage</div>
+  <div class="cv-big">MADRID</div>
+  <div class="cv-amp">&amp;</div>
+  <div class="cv-big">SHAKIRA</div>
+  <div class="cv-line"></div>
+  <div class="cv-date">18 - 21 SEPTEMBRE 2026</div>
+  <div class="cv-stats">
+    <div class="cv-stat"><div class="cv-sn">4</div><div class="cv-sl">Jours</div></div>
+    <div class="cv-stat"><div class="cv-sn">3</div><div class="cv-sl">Nuits</div></div>
+    <div class="cv-stat"><div class="cv-sn">1</div><div class="cv-sl">Concert</div></div>
+  </div>
+  <div class="cv-route">
+    <span class="cv-hl">Charleroi</span><div class="cv-dot"></div>
+    <span>Madrid</span><div class="cv-dot"></div>
+    <span class="cv-hl">Charleroi</span>
+  </div>
+
+  <div id="countdown" style="margin-top:14px;text-align:center">
+  <div style="font-size:11px;font-weight:700;letter-spacing:3px;color:#AAA;margin-bottom:6px">AVANT LE DÉPART</div>
+  <div style="display:flex;gap:10px;justify-content:center">
+    <div style="background:#272727;border-radius:10px;padding:10px 14px;min-width:56px;text-align:center">
+      <div id="cd-days" style="font-size:26px;font-weight:800;color:#C9A84C;line-height:1">--</div>
+      <div style="font-size:9px;color:#AAA;letter-spacing:1px;margin-top:2px">JOURS</div>
+    </div>
+    <div style="background:#272727;border-radius:10px;padding:10px 14px;min-width:56px;text-align:center">
+      <div id="cd-hours" style="font-size:26px;font-weight:800;color:#C9A84C;line-height:1">--</div>
+      <div style="font-size:9px;color:#AAA;letter-spacing:1px;margin-top:2px">HEURES</div>
+    </div>
+    <div style="background:#272727;border-radius:10px;padding:10px 14px;min-width:56px;text-align:center">
+      <div id="cd-mins" style="font-size:26px;font-weight:800;color:#C9A84C;line-height:1">--</div>
+      <div style="font-size:9px;color:#AAA;letter-spacing:1px;margin-top:2px">MINUTES</div>
+    </div>
+  </div>
+</div>
+<button id="startBtn" onclick="goStart()">Commencer le voyage</button>
+</div>
+
+<div id="app">
+  <div id="topbar">
+    <button id="homeBtn" onclick="goHome()" style="background:#2a2a2a;border:none;border-radius:8px;padding:8px 10px;color:#C9A84C;font-size:16px;cursor:pointer;flex-shrink:0" title="Accueil">&#127968;</button>
+    <button id="backBtn" onclick="goBack()">&#8592; Retour</button>
+    <button id="prevBtn" onclick="prevDay()" style="display:none;background:#2a2a2a;border:none;border-radius:8px;padding:8px 12px;color:#C9A84C;font-size:13px;font-weight:700;cursor:pointer">&#8592; Jour</button>
+    <button id="nextBtn" onclick="nextDay()">Suivant &#8594;</button>
+    <div style="flex:1;min-width:0">
+      <div id="topTitle">Itineraire</div>
+      <div id="topSub" style="font-size:10px;color:#C9A84C;letter-spacing:1px;font-weight:500">MADRID &amp; SHAKIRA 2026</div>
+    </div>
+    <svg id="topLogo" width="78" height="34" viewBox="0 0 230 100" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="MTO Morieux Tour Operator" style="flex-shrink:0">
+      <text x="36" y="70" text-anchor="middle" font-family="'Hiragino Mincho ProN','Yu Mincho',Georgia,serif" font-size="62" font-weight="700" fill="#F6F1E7" letter-spacing="-2">M</text>
+      <text x="84" y="70" text-anchor="middle" font-family="'Hiragino Mincho ProN','Yu Mincho',Georgia,serif" font-size="62" font-weight="700" fill="#B8923D" letter-spacing="-2">T</text>
+      <circle cx="158" cy="50" r="38" fill="none" stroke="#F6F1E7" stroke-width="5"/>
+      <circle cx="158" cy="50" r="26" fill="none" stroke="#B8923D" stroke-width="1.4"/>
+      <g font-family="-apple-system,'Helvetica Neue',sans-serif" font-size="12" font-weight="700" fill="#EFE4C6">
+        <text x="158" y="25" text-anchor="middle">N</text>
+        <text x="158" y="82" text-anchor="middle">S</text>
+        <text x="181" y="55" text-anchor="middle">E</text>
+        <text x="135" y="55" text-anchor="middle">O</text>
+      </g>
+      <g transform="rotate(38 158 50)">
+        <polygon points="158,27 164,50 158,73 152,50" fill="#B8923D"/>
+        <polygon points="158,27 158,50 152,50" fill="#EFE4C6"/>
+        <circle cx="158" cy="50" r="3.4" fill="#1A1714" stroke="#F6F1E7" stroke-width="1.2"/>
+      </g>
+    </svg>
+  </div>
+  <div class="prog"><div class="prog-fill" id="pf"></div></div>
+  <div id="main">
+    <div class="scr on" id="s-it"><div class="dw" id="dl"></div></div>
+    <div class="scr" id="s-dy"><div id="dd2"></div></div>
+    <div class="scr" id="s-in"><div class="iw" id="ic"></div></div>
+    <div class="scr" id="s-ti"><div class="tw" id="tc2"></div></div>
+    <div class="scr" id="s-pl">
+      <div style="padding:14px">
+        <div id="planTitle" style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C9A84C;padding:4px 0 12px;display:flex;align-items:center;gap:8px">Metro Madrid<span style="flex:1;height:1px;background:rgba(201,168,76,.2)"></span></div>
+        <div style="background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07)">
+          <img src="./plan.jpg" style="width:100%;height:auto;display:block" alt="Plan" onerror="if(this.src.indexOf('plan.jpg')>=0){this.src='./plan.png';}else{this.style.display='none';this.parentNode.innerHTML='<div style=&quot;padding:24px;text-align:center;color:#AAA;font-size:12px&quot;>Ajoutez le fichier plan.jpg ou plan.png dans le dossier pour afficher le plan hors-ligne.</div>';}">
+        </div>
+        <div style="margin-top:12px;background:#FAF6EE;border-left:3px solid #C9A84C;border-radius:10px;padding:12px 14px">
+          <div style="font-size:12px;color:#444;line-height:1.8">Plan disponible hors-ligne. Pensez a verifier les horaires et les lignes sur place.</div>
+        </div>
+        <div style="height:20px"></div>
+      </div>
+    </div>
+  </div>
+  <div id="bnav">
+    <button class="nb on" id="n-it" onclick="showS('it')"><span class="nb-i">&#128197;</span><span class="nb-l">Jours</span></button>
+    <button class="nb" id="n-in" onclick="showS('in')"><span class="nb-i">&#9992;&#65039;</span><span class="nb-l">Infos</span></button>
+    <button class="nb" id="n-ti" onclick="showS('ti')"><span class="nb-i">&#128295;</span><span class="nb-l">Outils</span></button>
+    <button class="nb" id="n-pl" onclick="showS('pl')"><span class="nb-i">&#128506;</span><span class="nb-l">Plan</span></button>
+  </div>
+</div>
+
+<script>
+var INFO_DATA={"CONCERT SHAKIRA - Las Mujeres Ya No Lloran": {"title": "Concert Shakira - le grand soir", "body": "ESTADIO SHAKIRA - Iberdrola Music, quartier de Villaverde (sud de Madrid).\nStade ephemere construit specialement pour la residence europeenne, plus de 50 000 places.\n\nHORAIRE :\nOuverture des portes 20h30. Arriver AU MOINS 1h avant (soit 19h30 sur place).\n\nACCES :\nLe site est excentre au sud. Options : Cercanias (train de banlieue) vers Villaverde, ou metro + navette. Compter 35-50 min depuis le centre. Partir vers 18h30.\n\nA PREVOIR :\n- Billet e-ticket telecharge HORS-LIGNE (reseau sature sur place)\n- Batterie externe chargee\n- Bouteille d eau et chaussures confortables\n- Une petite couche pour la nuit\n\nSUR PLACE :\nControles de securite longs vu la taille du site. Macondo Park propose gastronomie et expositions avant le show. Reperer sa sortie pour le retour.\n\nRETOUR :\nSortie de 50 000 personnes = patience. Prevoir 1h pour rentrer. Ne pas compter sur un VTC immediat."}, "Palais Royal de Madrid": {"title": "Palais Royal - Palacio Real", "body": "Plus grand palais royal d Europe occidentale (3418 pieces, 135 000 m2).\nResidence officielle de la famille royale (usage protocolaire uniquement).\n\nA VOIR :\n- Escalier monumental et salle du trone\n- Pharmacie royale et armurerie (collection d armures historique)\n- Salons d apparat, porcelaines, tapisseries\n\nPRATIQUE :\nBillet environ 14 EUR, reserver sur patrimonionacional.es pour eviter la file.\nArriver a l ouverture (10h) : moins de monde.\nReleve de la garde certains mercredis et samedis (verifier le calendrier).\nDuree de visite : 1h30 a 2h."}, "Musee du Prado": {"title": "Musee du Prado", "body": "L un des plus grands musees d art au monde, ouvert en 1819.\n\nINCONTOURNABLES :\n- Velazquez : Les Menines (Las Meninas), chef d oeuvre absolu\n- Goya : les Peintures noires, le 3 mai 1808\n- Bosch : Le Jardin des delices\n- Le Greco, Titien, Rubens\n\nCONSEIL :\nNe pas tout vouloir voir. Choisir un parcours de 2-3 salles cles (1h30-2h).\nBillet environ 15 EUR sur museodelprado.es.\nGratuit en fin de journee (souvent 18h-20h en semaine) mais tres charge.\nA 10 min a pied du Retiro et du Barrio de las Letras."}, "Coucher de soleil - Temple de Debod": {"title": "Temple de Debod", "body": "Temple egyptien authentique du IIe siecle av. J.-C., offert par l Egypte a l Espagne en 1968 (sauvetage lors de la construction du barrage d Assouan).\n\nPourquoi y aller :\nC est LE spot coucher de soleil de Madrid. Le temple se reflete dans les bassins, lumiere doree sur la pierre antique, vue degagee vers l ouest et la Casa de Campo.\n\nPRATIQUE :\nAcces gratuit au parc autour du temple (entree interieure limitee).\nArriver 30-45 min avant le coucher pour avoir une bonne place.\nQuartier a 15 min a pied du Palais Royal. Tres prise des Madrilenes."}, "Dejeuner - Mercado San Miguel": {"title": "Mercado San Miguel", "body": "Marche couvert historique (1916) en structure de fer et verre, a cote de la Plaza Mayor.\n\nL ESPRIT :\nPas un marche de courses mais un marche a tapas : on circule entre les stands, on grignote debout, verre a la main.\n\nA GOUTER :\n- Jambon iberique de bellota\n- Croquetas, gambas a l ail\n- Huitres et conserves de la mer (conservas)\n- Vermouth maison ou cava\n\nA SAVOIR :\nTres touristique et un peu cher au stand. Ambiance garantie, surtout en debut de soiree. Pour des tapas plus authentiques et moins cheres, viser La Latina (Cava Baja) le soir."}};
+var MAPS_CITY = "Madrid";
+var CURRENCIES = [];
+var TRICOUNT_URL = "https://tricount.com/tOXKlLsUIrPsznZnNC";
+var CONSEILS = ["Attention aux pickpockets dans le metro et les zones touristiques (Sol, Gran Via, Plaza Mayor).", "Diner tardif : en Espagne on mange souvent entre 21h et 22h30. Caler ses horaires sur le rythme local.", "Beaucoup de lieux ferment tard : la ville est tres vivante le soir et la nuit.", "Metro : dernier train a 1h30 du matin. Apres tes soirees dansantes, prevois un Uber ou un taxi pour rentrer.", "Eau du robinet potable et reputee a Madrid : inutile d acheter de l eau en bouteille.", "Sieste : certains petits commerces ferment l apres-midi (env. 14h-17h). Les grandes enseignes et le centre restent ouverts."];
+var DATA={"CHAPTERS": [{"id": "mad", "num": 1, "city": "MADRID", "subtitle": "Tapas, art et Shakira", "dates": "18 - 21 septembre 2026", "color": "#C8573F"}], "DAYS": [{"id": 1, "chap": "mad", "dayNum": 1, "date": "18 SEPT", "label": "18 SEPT - ARRIVEE MADRID", "location": "Sol - Plaza Mayor - Mercado San Miguel", "hotel": "Hotel Regina ****", "events": [{"time": "11h00", "title": "Vol Charleroi vers Madrid", "body": "Decollage Brussels South Charleroi (CRL). Vol direct vers Madrid-Barajas (MAD). Duree environ 2h15. Arrivee prevue 13h00.", "type": "transport", "cost": "Reserve", "plane": true}, {"time": "13h00", "title": "Arrivee Madrid-Barajas + Metro centre", "body": "Recuperation bagages T1/T2. Metro Linea 8 (rose) depuis l aeroport, changement a Nuevos Ministerios puis Linea 10 / Linea 2 vers Sevilla. Ou taxi forfait centre environ 33 EUR.", "type": "transport", "cost": "~5 EUR metro"}, {"time": "14h30", "title": "Check-in Hotel Regina", "body": "Calle de Alcala 19, a 100 m de la Puerta del Sol et de la station Sevilla (Linea 2). Depot des bagages meme si la chambre n est pas prete. Demander la terrasse rooftop au 6e etage.", "type": "hotel", "cost": "Reserve"}, {"time": "15h30", "title": "Dejeuner - Mercado San Miguel", "body": "Marche couvert historique en fer forge, a 8 min a pied. Tapas et raciones a partager : jambon iberique, croquetas, gambas, vermouth maison. Touristique mais incontournable.", "type": "meal", "cost": "~20-25 EUR", "walk": "10 min de l hotel"}, {"time": "17h00", "title": "Plaza Mayor + Puerta del Sol", "body": "La grande place a arcades du XVIIe, statue equestre de Philippe III. Puis le kilometre zero des routes d Espagne sur la Puerta del Sol, l ours et l arbousier (El Oso y el Madrono).", "type": "activity", "cost": "GRATUIT", "walk": "juste a cote du marche"}, {"time": "19h00", "title": "Apero - Plaza de Santa Ana", "body": "Quartier des Lettres (Barrio de las Letras). Terrasses animees, ambiance locale en debut de soiree. Cana (biere pression) + tapa offerte dans beaucoup de bars.", "type": "meal", "cost": "~10-15 EUR", "walk": "10 min de Plaza Mayor"}, {"time": "21h00", "title": "Diner tapas - La Latina", "body": "Calle Cava Baja : la rue des meilleurs bars a tapas de Madrid. Enchainer 2-3 adresses : tortilla, patatas bravas, pulpo. Diner espagnol = tard, 21h-23h.", "type": "meal", "cost": "~25-30 EUR", "uber": "10 min de la Plaza de Santa Ana"}, {"time": "23h00", "title": "Soiree musique live - Huertas et Santa Ana", "body": "Premiere soiree en douceur, a deux pas de l hotel. Quartier de Huertas / Plaza de Santa Ana : la zone la plus animee du centre, rues Cruz, Principe et Huertas. Bars a musique live et ambiance ou on peut danser. Le Cartuja (C. de la Cruz 10) pour du latino et reggaeton, ambiance discotheque a taille humaine, ouvert jusqu a 5h30. Rentree a pied a l hotel possible.", "type": "show", "cost": "~15-25 EUR"}], "tip": "A Madrid on dine tard (21h-23h). Caler ses horaires sur le rythme local evite les restos vides et touristiques. La station Sevilla (Linea 2) est juste devant l hotel.", "note": "Demain : Palais Royal, Retiro, et le soir le concert de Shakira a l Estadio Shakira ! Garder de l energie."}, {"id": 2, "chap": "mad", "dayNum": 2, "date": "19 SEPT", "label": "19 SEPT - MADRID + SHAKIRA", "location": "Palais Royal - Retiro - CONCERT SHAKIRA", "hotel": "Hotel Regina ****", "events": [{"time": "09h30", "title": "Petit-dejeuner churros - San Gines", "body": "Chocolateria San Gines, institution ouverte depuis 1894, a 5 min de l hotel. Churros et porras tremples dans le chocolat epais. Le petit-dej madrilene par excellence.", "type": "meal", "cost": "~6-8 EUR", "walk": ""}, {"time": "10h30", "title": "Palais Royal de Madrid", "body": "Plus grand palais royal d Europe occidentale (3418 pieces). Salle du trone, pharmacie royale, armurerie. Arriver tot pour eviter la file. Reserver en ligne conseille.", "type": "activity", "cost": "~14 EUR", "walk": "10 min de San Gines"}, {"time": "12h30", "title": "Cathedrale de l Almudena", "body": "Juste en face du palais. Interieur neo-gothique aux plafonds colores tres modernes. Entree a prix libre. Vue sympa depuis le parvis.", "type": "activity", "cost": "Don libre", "walk": "3 min du Palais Royal"}, {"time": "13h30", "title": "Dejeuner leger - Mercado de la Cebada", "body": "Marche de quartier plus authentique que San Miguel, dans La Latina. Manger leger ce midi : grosse soiree concert a venir. Bien s hydrater.", "type": "meal", "cost": "~15 EUR", "walk": "10 min de la cathedrale"}, {"time": "15h30", "title": "Parc du Retiro", "body": "Le poumon vert de Madrid. Barque sur le grand bassin, Palais de Cristal (serre de verre 1887), jardins. Sieste a l ombre pour recharger avant le concert.", "type": "activity", "cost": "GRATUIT", "uber": "10 min"}, {"time": "17h30", "title": "Retour hotel - Pause et preparation", "body": "Retour au Regina (metro Sevilla). Douche, repos, recharge telephone et batterie externe. Verifier les billets Shakira (e-ticket telecharge hors-ligne).", "type": "hotel", "cost": "---", "uber": "10 min"}, {"time": "18h30", "title": "Depart vers l Estadio Shakira", "body": "Iberdrola Music, quartier de Villaverde, au sud de Madrid. Cercanias (train de banlieue) depuis Sol ou Atocha vers Villaverde, ou metro + navette. Compter 35-50 min de trajet. PARTIR TOT : 50 000 personnes attendues.", "type": "transport", "cost": "~5 EUR", "maps": "Iberdrola Music Madrid"}, {"time": "19h30", "title": "Arrivee site - Controles + placement", "body": "Arriver au moins 1h avant (concert 20h30). Controles de securite longs pour un stade ephemere de cette taille. Reperer son acces, point d eau, sortie. Macondo Park : espaces gastronomie et expositions avant le show.", "type": "activity", "cost": "---", "maps": "Iberdrola Music Madrid"}, {"time": "20h30", "title": "CONCERT SHAKIRA - Las Mujeres Ya No Lloran", "body": "Estadio Shakira, Iberdrola Music. Unique residence europeenne de la tournee. Ouverture des portes 20h30, show ensuite. Les tubes (Hips Don t Lie, Waka Waka, Whenever) et le dernier album. Pyrotechnie et choregraphies spectaculaires.", "type": "show", "cost": "Billet reserve", "maps": "Iberdrola Music Madrid"}, {"time": "23h30", "title": "Retour vers le centre", "body": "Sortie de 50 000 personnes : patience. Suivre le flux vers les Cercanias / navettes. Prevoir 1h pour rentrer. Ne pas compter sur un taxi/VTC immediat (sature). Eau et chaussures confortables indispensables.", "type": "transport", "cost": "~5-15 EUR"}], "tip": "Le jour du concert : billet telecharge hors-ligne, batterie externe chargee, bouteille d eau, chaussures confortables. Partir 2h avant le show (site excentre + controles + 50 000 personnes). Arriver au moins 1h avant comme prevu.", "note": "Demain : matinee musees (Prado ou Reina Sofia) puis retour Charleroi. Nuit plus courte ce soir !"}, {"id": 3, "chap": "mad", "dayNum": 3, "date": "20 SEPT", "label": "20 SEPT - ART ET FLANERIE", "location": "Prado - Gran Via - Temple de Debod", "hotel": "Hotel Regina ****", "events": [{"time": "10h00", "title": "Grasse matinee + petit-dejeuner rooftop", "body": "Apres la grosse soiree, on prend son temps. Petit-dejeuner sur la terrasse du 6e etage du Regina, vue sur les toits de Madrid.", "type": "meal", "cost": "Inclus / ~12 EUR"}, {"time": "11h30", "title": "Musee du Prado", "body": "L un des plus grands musees du monde. Velazquez (Les Menines), Goya, Bosch (Jardin des delices). Choisir 2-3 chefs d oeuvre plutot que tout voir. Billet en ligne pour eviter la file.", "type": "activity", "cost": "~15 EUR", "walk": "10 min de l hotel"}, {"time": "14h00", "title": "Dejeuner - Barrio de las Letras", "body": "Cocido madrileno (pot-au-feu local) si l appetit suit, ou menu del dia (entree + plat + dessert + boisson, environ 15 EUR) tres repandu le midi en semaine.", "type": "meal", "cost": "~15-20 EUR", "walk": "10 min du musee"}, {"time": "16h00", "title": "Gran Via + shopping", "body": "La grande avenue Art deco de Madrid, le Broadway madrilene. Cinemas historiques, boutiques, facades monumentales. Photo de l immeuble Metropolis.", "type": "activity", "cost": "Shopping libre", "walk": "10 min de Barrio de las Letras"}, {"time": "18h30", "title": "Coucher de soleil - Temple de Debod", "body": "Temple egyptien authentique (IIe siecle av. J.-C.) offert par l Egypte, remonte a Madrid. Le meilleur spot coucher de soleil de la ville, reflets dans les bassins. Gratuit.", "type": "activity", "cost": "GRATUIT", "uber": "15 min"}, {"time": "20h30", "title": "Derniere soiree tapas - Casa Macareno (Malasana)", "body": "Tapas branchees a Malasana, le quartier le plus vivant le soir. Casa Macareno (C. de San Vicente Ferrer 44) : taverne revisitee, croquetas de jamon reputees parmi les meilleures de Madrid, patatas bravas a la vraie sauce piquante. Ambiance jeune et locale, ideale entre 20h et 22h avant de sortir.", "type": "meal", "cost": "~25-30 EUR", "maps": "Casa Macareno Madrid", "walk": ""}, {"time": "23h30", "title": "Soiree dansante - Teatro Eslava (Joy Madrid)", "body": "Pour finir le voyage, club dans un ancien theatre du centre. Teatro Eslava / Joy Madrid (C. del Arenal 11) : l une des discotheques les plus connues de Madrid, DJ sets, ambiance festive jusqu au bout de la nuit. Tenue correcte conseillee. A 5 min a pied de la Puerta del Sol.", "type": "show", "cost": "~20-30 EUR", "maps": "Joy Eslava Madrid", "uber": "ou 5 min a pied de Sol"}], "tip": "Le Prado est gratuit en fin de journee (generalement 18h-20h en semaine) mais tres charge. Le matin avec billet reste plus confortable. Preparer les bagages ce soir : vol tot demain.", "note": "Demain : check-out, derniere balade eventuelle, puis metro vers Barajas. Vol Charleroi a 14h00."}, {"id": 4, "chap": "mad", "dayNum": 4, "date": "21 SEPT", "label": "21 SEPT - RETOUR CHARLEROI", "location": "Check-out - Barajas - Vol retour", "hotel": "Vol retour", "events": [{"time": "09h00", "title": "Petit-dejeuner + check-out", "body": "Verifier la chambre, le coffre, les chargeurs. Check-out au plus tard 12h. Possibilite de laisser les bagages a la reception si derniere balade.", "type": "hotel", "cost": "---"}, {"time": "10h00", "title": "Derniere balade - Puerta del Sol / souvenirs", "body": "Dernier cafe et derniers achats : turron, jambon sous vide (verifier les regles bagage cabine), eventail. El Corte Ingles de Sol a une epicerie fine au sous-sol.", "type": "activity", "cost": "Libre", "walk": "5 min de l hotel"}, {"time": "11h30", "title": "Metro vers Madrid-Barajas", "body": "Depuis Sevilla : Linea 2 puis correspondances vers Linea 8 (Nuevos Ministerios) direction Aeropuerto. Compter 45 min + marche. Ou taxi forfait 33 EUR (plus sur avec bagages et horaire serre).", "type": "transport", "cost": "~5 EUR / 33 EUR taxi"}, {"time": "12h00", "title": "Arrivee Barajas - Enregistrement", "body": "Etre au comptoir 2h avant le vol. Verifier le terminal (vols Charleroi souvent T1). Controle securite, puis zone d embarquement.", "type": "transport", "cost": "---"}, {"time": "14h00", "title": "Vol Madrid vers Charleroi", "body": "Decollage Madrid-Barajas (MAD) vers Brussels South Charleroi (CRL). Duree environ 2h15. Arrivee prevue 16h00. Fin du voyage !", "type": "transport", "cost": "Reserve"}], "tip": "Jambon iberique et fromages : verifier les regles bagage cabine (liquides, charcuterie sous vide acceptee en general). Garder un peu de cash pour l aeroport.", "note": "Arrivee Charleroi 16h00. Buen viaje de vuelta ! Pensez a trier les photos du concert dans l avion."}], "TRAINS": [], "VOLS": [{"type": "ALLER", "route": "Charleroi CRL vers Madrid MAD", "airline": "Vol direct", "schedule": "18/09 - 11h00 vers 13h00"}, {"type": "RETOUR", "route": "Madrid MAD vers Charleroi CRL", "airline": "Vol direct", "schedule": "21/09 - 14h00 vers 16h00"}], "RESAS": [{"date": "19 SEPT", "name": "Concert Shakira - Estadio Shakira", "detail": "Iberdrola Music, Villaverde - Ouverture 20h30 - Arriver au moins 1h avant - billet hors-ligne", "deadline": "Billet deja reserve", "color": "#C8573F"}, {"date": "19 SEPT", "name": "Palais Royal de Madrid", "detail": "patrimonionacional.es - environ 14 EUR - reserver en ligne pour eviter la file", "deadline": "Reserver quelques jours avant", "color": "#5B3A7E"}, {"date": "20 SEPT", "name": "Musee du Prado", "detail": "museodelprado.es - environ 15 EUR - creneau horaire conseille", "deadline": "Reserver quelques jours avant", "color": "#2A6B7C"}], "PHRASES": [{"jp": "Hola / Buenos dias", "fr": "Bonjour"}, {"jp": "Gracias", "fr": "Merci"}, {"jp": "Por favor", "fr": "S il vous plait"}, {"jp": "La cuenta, por favor", "fr": "L addition, s il vous plait"}, {"jp": "Una cana, por favor", "fr": "Une biere pression, svp"}, {"jp": "Cuanto cuesta ?", "fr": "Combien ca coute ?"}, {"jp": "Donde esta el metro ?", "fr": "Ou est le metro ?"}, {"jp": "La cuenta esta muy buena", "fr": "C est tres bon"}], "ESSENTIALS": [{"label": "Chaussures confortables", "val": "Beaucoup de marche en ville + debout au concert. Privilegier le confort."}, {"label": "Tenue concert", "val": "Soiree de septembre : prevoir une petite couche, les nuits madrilenes fraichissent."}, {"label": "Batterie externe", "val": "Indispensable le jour du concert (billet, photos, retour de nuit)."}, {"label": "Billet Shakira hors-ligne", "val": "Telecharger l e-ticket AVANT, reseau sature autour du stade."}, {"label": "Creme solaire / casquette", "val": "Septembre a Madrid reste tres ensoleille, surtout au Retiro et a Debod."}, {"label": "Carte de transport", "val": "Multi Card metro/Cercanias rechargeable, ou tickets a l unite."}]};
+var CHS=DATA.CHAPTERS,DYS=DATA.DAYS,VLS=DATA.VOLS,TRN=DATA.TRAINS||[],RES=DATA.RESAS,PHS=DATA.PHRASES,ESS=DATA.ESSENTIALS;
+var curDay=null;
+
+function updateCountdown(){
+  var depart = new Date(2026, 8, 18, 11, 0, 0); // 13 août 2026 09h00
+  var now = new Date();
+  var diff = depart - now;
+  if(diff <= 0){
+    var el = document.getElementById("countdown");
+    if(el) el.innerHTML = '<div style="font-size:13px;font-weight:700;color:#C9A84C;letter-spacing:2px">BON VOYAGE ! ✈</div>';
+    return;
+  }
+  var days  = Math.floor(diff / 86400000);
+  var hours = Math.floor((diff % 86400000) / 3600000);
+  var mins  = Math.floor((diff % 3600000) / 60000);
+  var d = document.getElementById("cd-days");
+  var h = document.getElementById("cd-hours");
+  var m = document.getElementById("cd-mins");
+  if(d) d.textContent = days;
+  if(h) h.textContent = String(hours).padStart(2,"0");
+  if(m) m.textContent = String(mins).padStart(2,"0");
+}
+updateCountdown();
+setInterval(updateCountdown, 30000);
+
+function goStart(){
+  document.getElementById("cover").style.display="none";
+  var a=document.getElementById("app");
+  a.style.display="flex";
+  buildDays();
+  buildInfo();
+  buildTips();
+  updProg();
+  setTimeout(fetchRates, 500);
+  setTimeout(fetchWeather, 600);
+  // Restore last visited day
+  try{
+    var lastId = localStorage.getItem("lastDayId");
+    if(lastId){
+      var lastDay = DYS.find(function(d){ return d.id===parseInt(lastId); });
+      if(lastDay){
+        // Show a small banner to resume
+        var banner = document.createElement("div");
+        banner.id = "resumeBanner";
+        banner.style.cssText = "position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 18px;border-radius:50px;font-size:12px;font-weight:600;z-index:500;box-shadow:0 4px 20px rgba(0,0,0,.3);cursor:pointer;white-space:nowrap;border:1px solid #C9A84C";
+        banner.innerHTML = "&#9654; Reprendre le " + lastDay.date;
+        banner.onclick = function(){
+          openDay(parseInt(lastId));
+          banner.remove();
+        };
+        document.body.appendChild(banner);
+        setTimeout(function(){ if(banner.parentNode) banner.remove(); }, 5000);
+      }
+    }
+  }catch(e){}
+  // Currency button delegation
+  document.getElementById("main").addEventListener("click", function(e){
+    var btn = e.target.closest(".cur-btn");
+    if(btn) setCalcCurrency(btn.getAttribute("data-cur"));
+    var chk = e.target.closest(".chk-item");
+    if(chk && !e.target.closest(".chk-viewbtn") && !e.target.closest(".chk-infobadge")) toggleChk(chk.getAttribute("data-chkid"));
+    var viewb = e.target.closest(".chk-viewbtn");
+    if(viewb) viewResaDetails(e, viewb.getAttribute("data-resaid"));
+    var infob = e.target.closest(".chk-infobadge");
+    if(infob) openResaBadge(e, infob.getAttribute("data-resaid"));
+    var cal = e.target.closest(".cal-btn");
+    if(cal) addToCalendar(cal.getAttribute("data-calid"));
+    var plane = e.target.closest(".plane-btn");
+    if(plane){
+      var gt=plane.getAttribute("data-goto");
+      if(gt){
+        showS(gt);
+        buildInfo();
+        setTimeout(function(){
+          var anchor=document.getElementById("section-vols");
+          if(anchor) anchor.scrollIntoView({behavior:"smooth"});
+        }, 200);
+      }
+    }
+    var trainb = e.target.closest(".train-btn[data-goto-train]");
+    if(trainb){
+      var idx=trainb.getAttribute("data-goto-train");
+      showS("in");
+      buildInfo();
+      setTimeout(function(){
+        var anchor=document.getElementById("train-"+idx);
+        if(!anchor) anchor=document.getElementById("section-trains");
+        if(anchor){
+          anchor.scrollIntoView({behavior:"smooth", block:"center"});
+          anchor.style.transition="box-shadow .3s";
+          anchor.style.boxShadow="0 0 0 2px #2A6B7C";
+          setTimeout(function(){ anchor.style.boxShadow=""; }, 1600);
+        }
+      }, 200);
+    }
+    var tab = e.target.closest(".size-tab");
+    if(tab){
+      var tabName = tab.getAttribute("data-tab");
+      document.querySelectorAll(".size-tab").forEach(function(t){
+        var isActive = t.getAttribute("data-tab") === tabName;
+        t.style.background = isActive ? "#1a1a1a" : "#f8f8f8";
+        t.style.color = isActive ? "#C9A84C" : "#666";
+      });
+      document.querySelectorAll("[id^='tab-']").forEach(function(p){
+        p.style.display = (p.id === "tab-"+tabName) ? "block" : "none";
+      });
+    }
+  });
+}
+
+function e(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+
+function getTid(){var n=new Date(),s=new Date(2026,7,13),d=Math.floor((n-s)/86400000);return(d>=0&&d<17)?d+1:null}
+
+function updProg(){var t=getTid();document.getElementById("pf").style.width=(t?(t-1)/16*100:0)+"%"}
+
+function showS(k){
+  ["it","dy","in","ti","pl"].forEach(function(x){
+    document.getElementById("s-"+x).classList.remove("on");
+    var nb=document.getElementById("n-"+x);
+    if(nb)nb.classList.remove("on");
+  });
+  document.getElementById("s-"+k).classList.add("on");
+  var nb2=document.getElementById("n-"+k);
+  if(nb2)nb2.classList.add("on");
+  var bb=document.getElementById("backBtn");
+  bb.style.display=k==="dy"?"block":"none";
+  var nb2=document.getElementById("nextBtn");
+  if(k==="dy"){
+    var idx=curDay?DYS.findIndex(function(d){return d.id===curDay.id}):-1;
+    nb2.style.display=(idx>=0 && idx<DYS.length-1)?"block":"none";
+    var pb=document.getElementById("prevBtn");
+    if(pb) pb.style.display=(idx>0)?"block":"none";
+  } else {
+    nb2.style.display="none";
+    var pb=document.getElementById("prevBtn");
+    if(pb) pb.style.display="none";
+  }
+  var tt=document.getElementById("topTitle");
+  var ts=document.getElementById("topSub");
+  if(k==="dy"){tt.textContent="";ts.textContent=""}
+  else{var nm={it:"Itineraire",in:"Vols et Reservations",ti:"Outils",pl:"Metro Madrid"};tt.textContent=nm[k]||"";ts.textContent="MADRID & SHAKIRA 2026"}
+  document.getElementById("main").scrollTop=0;
+  if(k==="ti"){ setTimeout(fetchRates,100); setTimeout(fetchWeather,200); updateClocks(); }
+  if(k==="in"){ buildInfo(); }
+}
+
+function goBack(){showS("it")}
+
+function goHome(){
+  // Revenir a la page de couverture
+  var cover = document.getElementById("cover");
+  var app   = document.getElementById("app");
+  app.style.display = "none";
+  var main = document.getElementById("main");
+  if(main) main.scrollTop = 0;
+  cover.classList.remove("gone");
+  cover.style.display = "flex";
+  cover.style.opacity = "1";
+  cover.style.transform = "none";
+  // Rejouer l'animation d'apparition (sinon les enfants restent a opacity:0)
+  var kids = cover.children;
+  for(var i=0;i<kids.length;i++){
+    var el = kids[i];
+    if(el.id === "mtoLogo"){
+      // Le logo apparait instantanement, sans animation (sinon delai visible)
+      el.style.animation = "none";
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      continue;
+    }
+    el.style.animation = "none";
+    el.style.opacity = "0";
+    void el.offsetWidth;       // reflow pour reinitialiser
+    el.style.animation = "";   // reprend la regle CSS coverIn
+    el.style.opacity = "";     // laisse l'animation forwards gerer l'opacite finale
+  }
+  // Filet de securite : si une animation ne se redeclenche pas, garantir la visibilite
+  setTimeout(function(){
+    for(var j=0;j<cover.children.length;j++){ cover.children[j].style.opacity = "1"; }
+  }, 1000);
+  window.scrollTo(0,0);
+  updateCountdown();
+}
+
+// ── SWIPE NAVIGATION ──────────────────────────────────
+var swipeStartX = 0;
+var swipeStartY = 0;
+
+document.addEventListener("touchstart", function(e){
+  swipeStartX = e.touches[0].clientX;
+  swipeStartY = e.touches[0].clientY;
+}, {passive: true});
+
+document.addEventListener("touchend", function(e){
+  if(!curDay) return;
+  var dx = e.changedTouches[0].clientX - swipeStartX;
+  var dy = e.changedTouches[0].clientY - swipeStartY;
+  // Only horizontal swipe (dx > dy in absolute value) and minimum 60px
+  if(Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+  // Only on day detail screen
+  var dayScreen = document.getElementById("s-dy");
+  if(!dayScreen || !dayScreen.classList.contains("on")) return;
+  if(dx < 0) {
+    // Swipe left = next day
+    nextDay();
+  } else {
+    // Swipe right = previous day
+    prevDay();
+  }
+}, {passive: true});
+
+function prevDay(){
+  if(!curDay) return;
+  var idx = DYS.findIndex(function(d){return d.id===curDay.id});
+  if(idx > 0){
+    openDay(DYS[idx-1].id);
+    document.getElementById("main").scrollTop=0;
+  }
+}
+
+function nextDay(){
+  if(!curDay) return;
+  var idx = DYS.findIndex(function(d){return d.id===curDay.id});
+  if(idx < DYS.length-1){
+    openDay(DYS[idx+1].id);
+    document.getElementById("main").scrollTop=0;
+  }
+}
+
+function tclass(t){var m={transport:"tp",train:"tp",activity:"ta",meal:"tm",hotel:"th",show:"ts"};return m[t]||"ta"}
+function plbl(t){var m={transport:"Transport",train:"Trains",activity:"Activite",meal:"Repas",show:"Spectacle",hotel:"Sejour"};return m[t]||"Info"}
+function pcls(t){var m={transport:"t-tp",train:"t-tp",activity:"t-ac",meal:"t-me",show:"t-sh",hotel:"t-ht"};return m[t]||"t-ac"}
+
+function buildDays(){
+  var h="",last=null,tid=getTid();
+  DYS.forEach(function(day){
+    if(day.chap!==last){
+      var ch=CHS.find(function(c){return c.id===day.chap});
+      h+='<div class="ch"><div class="ch-n" style="background:'+ch.color+'"><span class="ch-nn">'+ch.num+'</span></div>';
+      h+='<div><div class="ch-city">'+e(ch.city)+'</div><div class="ch-d" style="color:'+ch.color+'">'+e(ch.dates)+'</div></div></div>';
+      last=day.chap;
+    }
+    var ch=CHS.find(function(c){return c.id===day.chap});
+    var types=[],seen={};
+    day.events.slice(0,4).forEach(function(ev){if(!seen[ev.type]){seen[ev.type]=1;types.push(ev.type)}});
+    var pills=types.map(function(t){return'<span class="pl '+pcls(t)+'">'+plbl(t)+'</span>'}).join("");
+    var more=day.events.length-4;
+    var today=(day.id===tid)?'<span class="tb">AUJOURD HUI</span>':"";
+    h+='<div class="dc" onclick="openDay('+day.id+')">';
+    h+='<div class="dc-top"><div class="db" style="background:'+ch.color+'"><span class="db-j">JOUR</span><span class="db-n">'+day.dayNum+'</span></div>';
+    h+='<div class="di"><div class="di-d">'+e(day.date)+today+'</div><div class="di-l">'+e(day.location)+'</div></div>';
+    h+='<div class="dh" style="background:'+ch.color+'">'+e(day.hotel.replace(" *****",""))+'</div></div>';
+    h+='<div class="dp">'+pills+(more>0?'<span class="pm">+'+more+'</span>':"")+'</div></div>';
+  });
+  document.getElementById("dl").innerHTML=h;
+}
+
+function placeQuery(title){
+  // Extrait le LIEU d'un titre d'activite pour une recherche Maps/Uber.
+  // Le lieu est generalement apres le dernier " - " (ex: "Diner - Mercado San Miguel").
+  var t = String(title||"").trim();
+  if(t.indexOf(" - ")>=0){
+    var segs = t.split(" - ");
+    t = segs[segs.length-1];
+  }
+  t = t.split(" + ")[0];
+  t = t.split(" / ")[0];
+  t = t.replace(/^(Check-?in|Check-?out|Arrivee|Arriv\u00e9e|Depart|D\u00e9part|Visite libre|Visite|Decouverte|D\u00e9couverte|Balade|Promenade|Retour|Installation|Diner|D\u00eener|Dejeuner|D\u00e9jeuner|Petit-dejeuner|Petit-d\u00e9jeuner|Brunch|Apero|Ap\u00e9ro|Soiree|Soir\u00e9e|Coucher de soleil|Grasse matinee|Grasse matin\u00e9e|Derniere|Derni\u00e8re|Dernier)\s+/i,"");
+  return t.trim();
+}
+
+function openDay(id){
+  curDay=DYS.find(function(d){return d.id===id});
+  if(!curDay)return;
+  try{ localStorage.setItem("lastDayId", id); }catch(e){}
+  var ch=CHS.find(function(c){return c.id===curDay.chap});
+  var parts=curDay.label.split(" - ");
+  var ds=parts[0]||"",ss=parts.slice(1).join(" - ")||"";
+  var evh="";
+  curDay.events.forEach(function(ev,i){
+    var last=(i===curDay.events.length-1);
+    var cost=(ev.cost&&ev.cost!=="---")?'<div class="tc2">'+e(ev.cost)+'</div>':"";
+    var mapsTypes=["activity","meal","show","hotel"];
+    var mapsHtml="";
+    if(mapsTypes.indexOf(ev.type)>=0){
+      var mapsCity=(typeof MAPS_CITY!=="undefined" && MAPS_CITY)?(" "+MAPS_CITY):"";
+      var q=encodeURIComponent((ev.maps?ev.maps:placeQuery(ev.title)+mapsCity));
+      var url="https://www.google.com/maps/search/?api=1&query="+q;
+      mapsHtml='<a href="'+url+'" target="_blank" rel="noopener" class="maps-btn">&#128205; Maps</a>';
+    }
+    var infoBtn="";
+    if(INFO_DATA && INFO_DATA[ev.title]){
+      var safeKey=ev.title.replace(/'/g,"&#39;");
+      infoBtn='<button class="info-btn" onclick="openInfo(this)" data-key="'+safeKey+'">&#9432; Infos</button>';
+    }
+    var calBtn="";
+    if(typeof CAL_MAP!=="undefined" && CAL_MAP[ev.title]){
+      calBtn='<button class="cal-btn" data-calid="'+CAL_MAP[ev.title]+'">&#128197; Calendrier</button>';
+    }
+    var uberBtn="";
+    if(ev.uber){
+      var uCity=(typeof MAPS_CITY!=="undefined" && MAPS_CITY)?(" "+MAPS_CITY):"";
+      var uDrop=encodeURIComponent((ev.maps?ev.maps:placeQuery(ev.title)+uCity));
+      var uUrl="https://m.uber.com/looking?drop[0]={\"addressLine1\":\""+uDrop+"\"}";
+      var uTxt=(typeof ev.uber==="string" && ev.uber.length)?(" "+ev.uber):"";
+      uberBtn='<a href="'+uUrl+'" target="_blank" rel="noopener" class="uber-btn">&#128663; Uber'+e(uTxt)+'</a>';
+    }
+    var boatBtn="";
+    if(typeof BOAT_EVENTS!=="undefined" && BOAT_EVENTS[ev.title]){
+      boatBtn='<span class="boat-btn">&#9972; Ferry</span>';
+    }
+    var trainBtn="";
+    if(typeof TRAIN_EVENTS!=="undefined" && TRAIN_EVENTS[ev.title]){
+      var tIdx = (typeof TRAIN_EVENT_TO_IDX!=="undefined" && TRAIN_EVENT_TO_IDX[ev.title]!=null) ? TRAIN_EVENT_TO_IDX[ev.title] : -1;
+      if(tIdx>=0){
+        trainBtn='<button class="train-btn" data-goto-train="'+tIdx+'">&#128646; Train</button>';
+      } else {
+        trainBtn='<span class="train-btn">&#128646; Train</span>';
+      }
+    }
+    var planeBtn="";
+    if(ev.plane){
+      planeBtn='<button class="plane-btn" data-goto="in">&#9992;&#65039; Vol</button>';
+    }
+    var walkBtn="";
+    if(ev.walk){
+      var wTxt=(typeof ev.walk==="string" && ev.walk.length)?(" "+ev.walk):"";
+      walkBtn='<span class="walk-btn">&#129406; A pied'+e(wTxt)+'</span>';
+    }
+    var grabBtn="";
+    if(typeof GRAB_EVENTS!=="undefined" && GRAB_EVENTS[ev.title]){
+      grabBtn='<a href="'+GRAB_EVENTS[ev.title]+'" class="grab-btn">&#128663; Grab</a>';
+    }
+    evh+='<div class="tr '+tclass(ev.type)+'">';
+    evh+='<div class="tll"><div class="tld"></div>'+(last?"":'<div class="tlln"></div>')+'</div>';
+    evh+='<div class="tc">'+cost+'<div class="tt">'+e(ev.time)+'</div><div class="tti">'+e(ev.title)+'</div><div class="tb2">'+e(ev.body)+'</div><div style="display:flex;gap:6px;flex-wrap:wrap">'+mapsHtml+planeBtn+walkBtn+trainBtn+boatBtn+uberBtn+grabBtn+infoBtn+calBtn+'</div></div></div>';
+  });
+  var tip=curDay.tip?'<div class="tipb"><div class="tipl">BON A SAVOIR</div><div class="tipt">'+e(curDay.tip)+'</div></div>':"";
+  var note=curDay.note?'<div class="noteb"><div class="notel">DEMAIN</div><div class="notet">'+e(curDay.note)+'</div></div>':"";
+  document.getElementById("dd2").innerHTML=
+    '<div class="dh2" style="background:'+ch.color+'">'+
+    '<div class="dhr" style="position:relative"><div class="dbg"><span class="dbg-j">JOUR</span><span class="dbg-n">'+curDay.dayNum+'</span></div>'+
+    '<div class="dd"><div class="dd-d">'+e(ds)+'</div><div class="dd-s">'+e(ss)+'</div><div class="dd-l" style="color:rgba(255,255,255,.8)">'+e(curDay.location)+'</div></div>'+
+    '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">'+
+    '<div class="dhp">'+e(curDay.hotel)+'</div>'+
+    '<button onclick="shareDay()" style="background:rgba(255,255,255,.12);border:none;border-radius:20px;padding:4px 9px;color:rgba(255,255,255,.75);font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap">&#128279; Partager</button>'+
+    '</div>'+
+    '</div>'+
+    '</div>'+
+    '<div class="tl">'+evh+tip+note+'</div>';
+  showS("dy");
+  var idx2=DYS.findIndex(function(d){return d.id===curDay.id});
+  var pb=document.getElementById("prevBtn");
+  if(pb) pb.style.display=(idx2>0)?"block":"none";
+  var nb2=document.getElementById("nextBtn");
+  if(nb2) nb2.style.display=(idx2<DYS.length-1)?"block":"none";
+}
+
+// === RESERVATIONS DEJA EFFECTUEES (en dur, survivent aux push GitHub) ===
+// Le localStorage garde la priorite : si l'utilisateur modifie sur son tel, sa version gagne.
+var DEFAULT_RESA_DONE = { hiroshima:true, sumo:true };
+var DEFAULT_RESA_DETAILS = {
+  hiroshima:{ num:"GNE447785",    site:"Klook",        info:"Paye !" },
+  sumo:     { num:"GYG32L6K2V3M", site:"Getyourguide", info:"Paiement CN automatique 345,40 EUR le 20/08" }
+};
+function loadChkState(){
+  var s={}; try{ var v=localStorage.getItem("chkState"); if(v) s=JSON.parse(v); }catch(e){}
+  for(var k in DEFAULT_RESA_DONE){ if(!(k in s)) s[k]=DEFAULT_RESA_DONE[k]; }
+  return s;
+}
+function loadResaDetails(){
+  var d={}; try{ var v=localStorage.getItem("resaDetails"); if(v) d=JSON.parse(v); }catch(e){}
+  for(var k in DEFAULT_RESA_DETAILS){ if(!d[k]) d[k]=DEFAULT_RESA_DETAILS[k]; }
+  return d;
+}
+
+function buildInfo(){
+  // Load checklist state
+  var chkState = loadChkState();
+
+  var chkItems = (typeof RES!=="undefined" && RES && RES.length) ? RES.map(function(r,idx){
+    return {id:"resa"+idx, name:r.name, date:r.date, deadline:r.deadline||"Reserver avant le depart", color:r.color||"#B8923D"};
+  }) : [];
+  var doneCount = chkItems.filter(function(i){ return chkState[i.id]; }).length;
+
+  var h='';
+  // Bloc conseils pratiques (en tete), pilote par CONSEILS.
+  if(typeof CONSEILS!=="undefined" && CONSEILS && CONSEILS.length){
+    h+='<div class="st">&#9888; Conseils pratiques</div>';
+    h+='<div style="background:#FAF6EE;border-left:3px solid #B8923D;border-radius:10px;padding:14px 16px;margin-bottom:16px">';
+    h+='<div style="font-size:13px;color:#444;line-height:1.7">';
+    CONSEILS.forEach(function(c){
+      h+='<div style="display:flex;gap:8px;margin-bottom:8px"><span style="color:#B8923D;font-weight:700;flex-shrink:0">&bull;</span><span>'+e(c)+'</span></div>';
+    });
+    h+='</div></div>';
+  }
+  h+='<div class="st">Checklist Reservations</div>';
+  h+='<div class="chk-card">';
+  h+='<div class="chk-head"><span class="chk-title">RESERVATIONS ESSENTIELLES</span><span class="chk-progress">'+doneCount+' / '+chkItems.length+' faites</span></div>';
+  var resaDetails = loadResaDetails();
+
+  chkItems.forEach(function(item){
+    var done = !!chkState[item.id];
+    var boxCls = done ? "chk-box done" : "chk-box";
+    var nameCls = done ? "chk-name done" : "chk-name";
+    var deadlineTxt = done ? "&#10003; Reserve !" : e(item.deadline);
+    var det = resaDetails[item.id] || {};
+    var refText = (done && (det.num||det.site)) ? ((det.num ? '# '+det.num : '') + (det.num&&det.site ? ' - ' : '') + (det.site||'')) : '';
+    var infoText = (done && det.info) ? det.info : '';
+    h += '<div class="chk-item" data-chkid="'+item.id+'">';
+    h += '<div class="'+boxCls+'"><span class="chk-check">&#10003;</span></div>';
+    h += '<div class="chk-info" style="flex:1;min-width:0">';
+    h += '<div class="'+nameCls+'">'+e(item.name)+'</div>';
+    h += '<div class="chk-date">'+e(item.date)+'</div>';
+    h += '<div class="chk-deadline" style="color:'+item.color+'" data-orig="'+e(item.deadline)+'">'+deadlineTxt+'</div>';
+    if(refText) h += '<div class="chk-refnum">'+refText+'</div>';
+    if(infoText) h += '<div class="chk-infobadge" data-resaid="'+item.id+'">&#8505; <span>'+e(infoText)+'</span></div>';
+    if(done) h += '<button class="chk-viewbtn" data-resaid="'+item.id+'">&#128196; Voir details</button>';
+    h += '</div></div>';
+  });
+  h+='</div>';
+
+  h+='<div id="section-vols" style="scroll-margin-top:60px"></div><div class="st">Vols</div>';
+  var volLinks = {};
+  VLS.forEach(function(v){
+    var lnk = volLinks[v.type] || {};
+    h+='<div class="vc"><div class="vi"><div class="vt">'+e(v.type)+'</div><div class="vr">'+e(v.route)+'</div><div class="vd">'+e(v.airline)+'</div><div class="vd">'+e(v.schedule)+'</div>';
+    if(lnk.ref) h+='<div class="vd" style="margin-top:4px">Ref : <b>'+e(lnk.ref)+'</b></div>';
+    if(lnk.url) h+='<a href="'+lnk.url+'" target="_blank" style="font-size:11px;font-weight:700;color:#2A6B7C;text-decoration:none;display:inline-block;margin-top:4px">&#127760; '+e(lnk.site)+'</a>';
+    h+='<div class="vo">Confirme</div></div></div>';
+  });
+  // === Section Trains (recap facon Vols) ===
+  if(TRN.length){
+    h+='<div id="section-trains" style="scroll-margin-top:60px"></div><div class="st">&#128642; Trains</div>';
+    TRN.forEach(function(t,ti){
+      var badge = t.pass
+        ? '<span style="display:inline-block;background:#2A6B7C;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">INCLUS PASS</span>'
+        : '<span style="display:inline-block;background:#C8573F;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px">NON INCLUS - billet a acheter</span>';
+      h+='<div class="vc" id="train-'+ti+'" style="scroll-margin-top:70px"><div class="vi">';
+      h+='<div class="vt">'+e(t.date)+' - '+e(t.time)+'</div>';
+      h+='<div class="vr">'+e(t.from)+' &rarr; '+e(t.to)+'</div>';
+      h+='<div class="vd">'+e(t.line)+'</div>';
+      h+='<div class="vd" style="margin-top:5px">'+badge+'</div>';
+      h+='</div></div>';
+    });
+  }
+  // Hebergements : extraits des jours (champ hotel), dedupliques, dates regroupees.
+  var hotelMap={}; var hotelOrder=[];
+  DYS.forEach(function(d){
+    var hn=(d.hotel||"").trim();
+    if(!hn || hn==="---") return;
+    if(/^vol /i.test(hn)) return;
+    if(!hotelMap[hn]){ hotelMap[hn]={name:hn, dates:[d.date]}; hotelOrder.push(hn); }
+    else { hotelMap[hn].dates.push(d.date); }
+  });
+  if(hotelOrder.length){
+    h+='<div class="st">Hebergements</div><div class="hl">';
+    var mapsCityH=(typeof MAPS_CITY!=="undefined" && MAPS_CITY)?(" "+MAPS_CITY):"";
+    hotelOrder.forEach(function(hn){
+      var hh=hotelMap[hn];
+      var nm=hh.name.replace(/\s*\*+\s*$/,"").trim();
+      var stars=(hh.name.match(/\*+/)||[""])[0];
+      var dr=hh.dates.length>1 ? (hh.dates[0]+" - "+hh.dates[hh.dates.length-1]) : hh.dates[0];
+      var q=encodeURIComponent(nm+mapsCityH);
+      var mapsLink='<a href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener" class="maps-btn" style="margin-top:5px">&#128205; Maps</a>';
+      h+='<div class="hr2"><div style="flex:1;min-width:0"><div class="hn">'+e(nm)+'</div><div class="hs">'+e(stars)+' '+e(dr)+'</div>'+mapsLink+'</div></div>';
+    });
+    h+='</div>';
+  }
+
+  h+='<div class="st">Essentiels a emporter</div><div class="el">';
+  ESS.forEach(function(es){
+    h+='<div class="er"><div class="edd"></div><div><div class="ela">'+e(es.label)+'</div><div class="elv">'+e(es.val)+'</div></div></div>';
+  });
+  h+='</div>';
+  document.getElementById("ic").innerHTML=h;
+}
+
+function openExtApp(ev, el, webFallback){
+  if(ev) ev.preventDefault();
+  var scheme = el.getAttribute("href");
+  var hidden = false;
+  function onHide(){ hidden = true; }
+  document.addEventListener("visibilitychange", onHide);
+  try { window.location.href = scheme; } catch(e){}
+  // Si l'app ne s'ouvre pas (page toujours visible), bascule sur le web.
+  setTimeout(function(){
+    document.removeEventListener("visibilitychange", onHide);
+    if(!hidden && document.visibilityState === "visible"){
+      window.open(webFallback, "_blank", "noopener");
+    }
+  }, 700);
+  return false;
+}
+
+function buildTips(){
+  var hasCur = (typeof CURRENCIES!=="undefined" && CURRENCIES && CURRENCIES.length>0);
+  var h="";
+  if(hasCur){
+  // Currency section
+  h+='<div class="st">Taux de change</div>';
+  h+='<div id="currencyBox" style="display:flex;gap:10px;margin-bottom:14px"></div>';
+  h+='<div id="rateInfo" style="font-size:10px;color:#AAA;text-align:center;margin-bottom:10px">Chargement des taux en temps reel...</div>';
+  h+='<div style="background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)">';
+  h+='<div style="font-size:10px;font-weight:700;color:#C9A84C;letter-spacing:1px;margin-bottom:10px">CALCULATRICE DE CHANGE</div>';
+  h+='<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">';
+  h+='<input id="calcInput" type="number" placeholder="Montant" oninput="calcChange()" style="flex:1;border:1.5px solid #f0ead4;border-radius:10px;padding:10px 12px;font-size:16px;font-weight:600;color:#1a1a1a;outline:none;-webkit-appearance:none">';
+  h+='<div style="display:flex;flex-direction:column;gap:4px">';
+  h+='<button data-cur="EUR" id="btnEUR" class="cur-btn" style="padding:6px 10px;border-radius:8px;border:none;font-size:11px;font-weight:700;cursor:pointer;background:#C9A84C;color:#1a1a1a">EUR</button>';
+  CURRENCIES.forEach(function(c){
+    h+='<button data-cur="'+c.code+'" id="btn'+c.code+'" class="cur-btn" style="padding:6px 10px;border-radius:8px;border:none;font-size:11px;font-weight:700;cursor:pointer;background:#f0f0f0;color:#666">'+c.code+'</button>';
+  });
+  h+='</div></div>';
+  h+='<div id="calcResult" style="font-size:13px;color:#444;line-height:1.9;min-height:44px">Entrez un montant ci-dessus</div>';
+  h+='</div>';
+  }
+
+    // ── FUSEAUX HORAIRES ──
+  h+='<div class="st">Fuseaux Horaires</div>';
+    h+='<div style="display:flex;gap:8px;margin-bottom:14px" id="clockBox">';
+  h+='<div style="flex:1;background:#fff;border-radius:14px;padding:12px 8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)">';
+  h+='<div style="font-size:9px;font-weight:700;color:#1a1a1a;letter-spacing:1px;margin-bottom:4px">CHARLEROI</div>';
+  h+='<div id="clock-h0" style="font-size:22px;font-weight:800;color:#1a1a1a;line-height:1;font-variant-numeric:tabular-nums">--:--</div>';
+  h+='</div>';
+  h+='<div style="flex:1;background:#fff;border-radius:14px;padding:12px 8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06)">';
+  h+='<div style="font-size:9px;font-weight:700;color:#C8573F;letter-spacing:1px;margin-bottom:4px">MADRID</div>';
+  h+='<div id="clock-h1" style="font-size:22px;font-weight:800;color:#C8573F;line-height:1;font-variant-numeric:tabular-nums">--:--</div>';
+  h+='</div>';
+  h+='</div>';
+
+  h+='<div class="st">Meteo en direct</div>';
+  h+='<div id="weatherBox" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">';
+  h+='<div style="text-align:center;padding:16px;color:#AAA;font-size:12px">Chargement de la meteo...</div>';
+  h+='</div>';
+
+
+  if(typeof TRICOUNT_URL!=="undefined" && TRICOUNT_URL){
+    h+='<div class="st">Depenses partagees</div>';
+    h+='<a href="'+TRICOUNT_URL+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-decoration:none">';
+    h+='<div style="width:42px;height:42px;border-radius:11px;background:#1A6FEE;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">&#128176;</div>';
+    h+='<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#1a1a1a">Ouvrir le Tricount</div><div style="font-size:11px;color:#888;margin-top:2px">Comptes et depenses partagees du voyage</div></div>';
+    h+='<div style="font-size:18px;color:#B8923D">&#8250;</div>';
+    h+='</a>';
+  }
+
+  // Applications pratiques : Uber + Google Maps (ouvrent l'app si installee).
+  h+='<div class="st">Applications</div>';
+  h+='<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">';
+  // Uber : ouvre l'app sur la position courante comme point de depart.
+  h+='<a href="uber://?action=setPickup&pickup=my_location" onclick="return openExtApp(event,this,\'https://m.uber.com/looking\')" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-decoration:none">';
+  h+='<div style="width:42px;height:42px;border-radius:11px;background:#1A1714;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">&#128663;</div>';
+  h+='<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#1a1a1a">Uber</div><div style="font-size:11px;color:#888;margin-top:2px">Commander une course autour de moi</div></div>';
+  h+='<div style="font-size:18px;color:#B8923D">&#8250;</div></a>';
+  // Google Maps : ouvre l'app centree sur la position courante.
+  h+='<a href="comgooglemaps://?center=0,0&zoom=14" onclick="return openExtApp(event,this,\'https://www.google.com/maps\')" style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,.06);text-decoration:none">';
+  h+='<div style="width:42px;height:42px;border-radius:11px;background:#1a73e8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">&#128205;</div>';
+  h+='<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#1a1a1a">Google Maps</div><div style="font-size:11px;color:#888;margin-top:2px">Ouvrir la carte autour de moi</div></div>';
+  h+='<div style="font-size:18px;color:#B8923D">&#8250;</div></a>';
+  h+='</div>';
+
+  h+='<div class="st">Phrases utiles</div><div class="phl">';
+  PHS.forEach(function(p){
+    h+='<div class="phr"><span class="phj">'+e(p.jp)+'</span><span class="phf">'+e(p.fr)+'</span></div>';
+  });
+  h+='</div>';
+  document.getElementById("tc2").innerHTML=h;
+}
+
+// ── SCROLL TO TOP ──────────────────────────────────────
+document.addEventListener("DOMContentLoaded", function(){
+  var main = document.getElementById("main");
+  if(main){
+    main.addEventListener("scroll", function(){
+      var btn = document.getElementById("scrollTopBtn");
+      if(!btn) return;
+      if(main.scrollTop > 200) btn.classList.add("show");
+      else btn.classList.remove("show");
+    }, {passive:true});
+  }
+});
+
+var currentResaId = null;
+
+function toggleChk(id){
+  var state = {};
+  var state = loadChkState();
+  if(!state[id]){
+    // Not yet done - open modal to enter reservation details
+    currentResaId = id;
+    var item = document.querySelector('[data-chkid="'+id+'"]');
+    var name = item ? item.querySelector(".chk-name") : null;
+    document.getElementById("resaModalTitle").textContent = (name ? name.textContent : id) + " - Details reservation";
+    // Pre-fill if already has data
+    var details = {};
+    var details = loadResaDetails();
+    document.getElementById("resaNumInput").value = (details[id] && details[id].num) || "";
+    document.getElementById("resaSiteInput").value = (details[id] && details[id].site) || "";
+    document.getElementById("resaInfoInput").value = (details[id] && details[id].info) || "";
+    document.getElementById("resaModal").classList.add("open");
+  } else {
+    // Already done - uncheck directly
+    state[id] = false;
+    try{ localStorage.setItem("chkState", JSON.stringify(state)); }catch(e){}
+    buildInfo();
+    updateProgress();
+  }
+}
+
+function saveResaDetails(){
+  var id = currentResaId;
+  if(!id) return;
+  var num = document.getElementById("resaNumInput").value.trim();
+  var site = document.getElementById("resaSiteInput").value.trim();
+  var info = document.getElementById("resaInfoInput").value.trim();
+  // Save state
+  var state = {};
+  var state = loadChkState();
+  state[id] = true;
+  try{ localStorage.setItem("chkState", JSON.stringify(state)); }catch(e){}
+  // Save details
+  var details = {};
+  var details = loadResaDetails();
+  details[id] = {num: num, site: site, info: info};
+  try{ localStorage.setItem("resaDetails", JSON.stringify(details)); }catch(e){}
+  closeResaModal();
+  buildInfo();
+  updateProgress();
+  // Scroll back to checklist
+  setTimeout(function(){
+    var el = document.querySelector('[data-chkid="'+id+'"]');
+    if(el) el.scrollIntoView({behavior:"smooth", block:"center"});
+  }, 100);
+}
+
+var currentViewId = null;
+
+function viewResaDetails(evt, id){
+  evt.stopPropagation();
+  currentViewId = id;
+  var details = {};
+  var details = loadResaDetails();
+  var det = details[id] || {};
+  var item = document.querySelector('[data-chkid="'+id+'"]');
+  var name = item ? (item.querySelector(".chk-name") || {textContent:id}) : {textContent:id};
+  document.getElementById("resaDetailsName").textContent = name.textContent.replace(/\u0336/g,"");
+  var html = "";
+  if(det.num) html += '<div class="resa-detail-row"><div class="resa-detail-label">NUMERO DE RESERVATION</div><div class="resa-detail-value">'+det.num+'</div></div>';
+  if(det.site) html += '<div class="resa-detail-row"><div class="resa-detail-label">SITE / PLATEFORME</div><div class="resa-detail-value">'+det.site+'</div></div>';
+  if(det.info) html += '<div class="resa-detail-row"><div class="resa-detail-label">INFO COMPLEMENTAIRE</div><div class="resa-detail-value">'+det.info+'</div></div>';
+  if(!det.num && !det.site && !det.info) html = '<div style="color:#AAA;font-size:13px;padding:10px 0">Aucun detail enregistre.</div>';
+  document.getElementById("resaDetailsBody").innerHTML = html;
+  document.getElementById("resaDetailsPopup").classList.add("open");
+}
+
+function closeResaDetails(){
+  document.getElementById("resaDetailsPopup").classList.remove("open");
+  currentViewId = null;
+}
+
+function editResaFromDetails(){
+  closeResaDetails();
+  if(currentViewId) setTimeout(function(){ openResaBadge({stopPropagation:function(){}}, currentViewId); }, 100);
+}
+
+function openResaBadge(evt, id){
+  evt.stopPropagation();
+  // Re-open modal to edit
+  currentResaId = id;
+  var item = document.querySelector('[data-chkid="'+id+'"]');
+  var name = item ? item.querySelector(".chk-name") : null;
+  document.getElementById("resaModalTitle").textContent = (name ? name.textContent : id) + " - Details reservation";
+  var details = {};
+  var details = loadResaDetails();
+  document.getElementById("resaNumInput").value = (details[id] && details[id].num) || "";
+  document.getElementById("resaSiteInput").value = (details[id] && details[id].site) || "";
+  document.getElementById("resaInfoInput").value = (details[id] && details[id].info) || "";
+  document.getElementById("resaModal").classList.add("open");
+}
+
+function closeResaModal(){
+  document.getElementById("resaModal").classList.remove("open");
+  currentResaId = null;
+}
+
+function updateChkDOM(id, done, num, site, info){
+  var item = document.querySelector('[data-chkid="'+id+'"]');
+  if(!item) return;
+  var box = item.querySelector(".chk-box");
+  var name = item.querySelector(".chk-name");
+  var deadline = item.querySelector(".chk-deadline");
+  var refEl = item.querySelector(".chk-refnum");
+  if(box) box.className = done ? "chk-box done" : "chk-box";
+  if(name) name.className = done ? "chk-name done" : "chk-name";
+  if(deadline) deadline.innerHTML = done ? "&#10003; Reserve !" : (deadline.getAttribute("data-orig")||"");
+  if(refEl){
+    if(done && (num||site)) refEl.textContent = (num ? "# "+num : "") + (num&&site ? " - " : "") + (site||"");
+    else refEl.textContent = "";
+  }
+  // Show ref number + site below name
+  if(refEl){
+    if(done && (num||site)) refEl.textContent = (num ? "# "+num : "") + (num&&site ? " - " : "") + (site||"");
+    else refEl.textContent = "";
+  }
+  // Show info badge
+  var badgeEl = item ? item.querySelector(".chk-infobadge") : null;
+  if(badgeEl){
+    if(done && info){ badgeEl.style.display="inline-flex"; badgeEl.querySelector("span").textContent=info; }
+    else badgeEl.style.display="none";
+  }
+  // Show view-details button
+  var viewBtn = item ? item.querySelector(".chk-viewbtn") : null;
+  if(viewBtn) viewBtn.style.display = done ? "inline-flex" : "none";
+}
+
+function updateProgress(){
+  var allState = {};
+  var allState = loadChkState();
+  var doneCount = Object.values(allState).filter(Boolean).length;
+  var prog = document.querySelector(".chk-progress");
+  if(prog) prog.textContent = doneCount + " / " + chkItems.length + " faites";
+}
+
+
+
+function shareDay(){
+  if(!curDay) return;
+  var text = "📅 " + curDay.label + "\n\n";
+  curDay.events.forEach(function(ev){
+    text += "⏰ " + ev.time + " — " + ev.title + "\n";
+  });
+  text += "\n🗾 MADRID & SHAKIRA 2026";
+  if(navigator.share){
+    navigator.share({title: curDay.date + " — Carnet Voyage", text: text})
+      .catch(function(){});
+  } else {
+    // Fallback: copy to clipboard
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+    // Show brief confirmation
+    var btn = document.querySelector(".share-btn");
+    if(btn){ var orig=btn.innerHTML; btn.innerHTML="✓ Copié !"; setTimeout(function(){ btn.innerHTML=orig; },2000); }
+  }
+}
+
+function scrollToTop(){
+  var main = document.getElementById("main");
+  if(main) main.scrollTo({top:0, behavior:"smooth"});
+}
+
+// ── INFO POPUP ──────────────────────────────────────────
+function openInfo(btn) {
+  var key = btn.getAttribute("data-key");
+  var d = INFO_DATA[key];
+  if (!d) return;
+  document.getElementById("infoTitle").textContent = d.title;
+  document.getElementById("infoBody").textContent = d.body;
+  var ov = document.getElementById("infoOverlay");
+  ov.style.display = "flex";
+  ov.style.alignItems = "flex-end";
+  ov.style.justifyContent = "center";
+  document.getElementById("main").style.overflow = "hidden";
+}
+
+function closeInfoOverlay() {
+  document.getElementById("infoOverlay").style.display = "none";
+  document.getElementById("main").style.overflow = "";
+}
+function updateClocks(){
+  var now = new Date();
+  var t0 = new Date(now.toLocaleString("en-US", {timeZone:"Europe/Brussels"}));
+  var t1 = new Date(now.toLocaleString("en-US", {timeZone:"Europe/Madrid"}));
+  function fmt(d){ return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
+  var c0 = document.getElementById("clock-h0"); if(c0) c0.textContent = fmt(t0);
+  var c1 = document.getElementById("clock-h1"); if(c1) c1.textContent = fmt(t1);
+}
+updateClocks();
+setInterval(updateClocks, 10000);
+
+var WEATHER_CITIES = [
+  {name:"Madrid", lat:40.4168, lon:-3.7038, color:"#C8573F"}
+];
+
+function weatherIcon(code){
+  if(code===0) return "Ensoleille";
+  if(code<=2)  return "Peu nuageux";
+  if(code<=3)  return "Nuageux";
+  if(code<=49) return "Brouillard";
+  if(code<=59) return "Bruine";
+  if(code<=69) return "Pluie";
+  if(code<=79) return "Neige";
+  if(code<=82) return "Averses";
+  if(code<=95) return "Orage";
+  return "Variable";
+}
+
+function fetchWeather(){
+  var box = document.getElementById("weatherBox");
+  if(!box) return;
+  var results = [];
+  var done = 0;
+  WEATHER_CITIES.forEach(function(city, idx){
+    var url = "https://api.open-meteo.com/v1/forecast?latitude="+city.lat+"&longitude="+city.lon
+      +"&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max"
+      +"&timezone=auto&forecast_days=2";
+    fetch(url)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        results[idx] = {city:city, data:d};
+        done++;
+        if(done === WEATHER_CITIES.length) renderWeather(results);
+      })
+      .catch(function(){
+        results[idx] = {city:city, data:null};
+        done++;
+        if(done === WEATHER_CITIES.length) renderWeather(results);
+      });
+  });
+}
+
+function weatherEmoji(code){
+  if(code===0) return "&#9728;&#65039;";
+  if(code<=2)  return "&#9925;";
+  if(code<=3)  return "&#9729;";
+  if(code<=49) return "&#127787;";
+  if(code<=59) return "&#127746;";
+  if(code<=67) return "&#127783;";
+  if(code<=69) return "&#127784;";
+  if(code<=79) return "&#127781;";
+  if(code<=82) return "&#127783;";
+  if(code<=95) return "&#9928;";
+  return "&#9729;";
+}
+
+function renderWeather(results){
+  var box = document.getElementById("weatherBox");
+  if(!box) return;
+  var days = ["Aujourd hui","Demain"];
+  var html = "";
+  results.forEach(function(r){
+    html += '<div style="background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">';
+    html += '<div style="background:'+r.city.color+';padding:10px 14px">';
+    html += '<span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:1px">'+r.city.name.toUpperCase()+'</span>';
+    html += '</div>';
+    if(!r.data || !r.data.daily){
+      html += '<div style="padding:12px 14px;font-size:12px;color:#AAA">Meteo non disponible (hors ligne)</div>';
+    } else {
+      var d = r.data.daily;
+      html += '<div style="display:flex">';
+      for(var i=0;i<2;i++){
+        html += '<div style="flex:1;padding:12px 10px;text-align:center;'+(i===0?'border-right:1px solid #f0f0f0':'')+'">';
+        html += '<div style="font-size:10px;font-weight:700;color:#AAA;letter-spacing:1px;margin-bottom:8px">'+days[i].toUpperCase()+'</div>';
+        var max = Math.round(d.temperature_2m_max[i]);
+        var min = Math.round(d.temperature_2m_min[i]);
+        var emoji = weatherEmoji(d.weathercode[i]);
+        var label = weatherIcon(d.weathercode[i]);
+        var rain = d.precipitation_probability_max[i]||0;
+        html += '<div style="font-size:32px;line-height:1;margin-bottom:6px">'+emoji+'</div>';
+        html += '<div style="font-size:22px;font-weight:800;color:'+r.city.color+'">'+max+'<span style="font-size:13px">°C</span></div>';
+        html += '<div style="font-size:11px;color:#888;margin-top:2px">min '+min+'°C</div>';
+        html += '<div style="font-size:11px;font-weight:600;color:#555;margin-top:5px">'+label+'</div>';
+        html += '<div style="font-size:10px;color:'+(rain>40?'#C8573F':'#AAA')+';margin-top:3px">&#127783; '+rain+'% pluie</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+  box.innerHTML = html;
+}
+
+
+var calcCurrency = "EUR";
+var cachedRates = null;
+
+function setCalcCurrency(cur) {
+  calcCurrency = cur;
+  var codes = ["EUR"].concat((typeof CURRENCIES!=="undefined"&&CURRENCIES)?CURRENCIES.map(function(c){return c.code;}):[]);
+  codes.forEach(function(c){
+    var btn = document.getElementById("btn"+c);
+    if(btn) {
+      btn.style.background = (c===cur) ? "#C9A84C" : "#f0f0f0";
+      btn.style.color = (c===cur) ? "#1a1a1a" : "#666";
+    }
+  });
+  calcChange();
+}
+
+function calcChange() {
+  var input = document.getElementById("calcInput");
+  var result = document.getElementById("calcResult");
+  if(!input || !result) return;
+  if(typeof CURRENCIES==="undefined" || !CURRENCIES || !CURRENCIES.length){ return; }
+  var val = parseFloat(input.value);
+  if(!val || isNaN(val)) { result.innerHTML = "Entrez un montant ci-dessus"; return; }
+  if(!cachedRates) {
+    cachedRates = {};
+    CURRENCIES.forEach(function(c){ cachedRates[c.code]=c.fallback||1; });
+  }
+  // Convertit le montant saisi (dans calcCurrency) vers EUR puis vers chaque devise.
+  var eur;
+  if(calcCurrency === "EUR"){ eur = val; }
+  else { var r=cachedRates[calcCurrency]||1; eur = val / r; }
+  var parts = ["<b style='color:#C9A84C'>"+eur.toFixed(2)+" EUR</b>"];
+  CURRENCIES.forEach(function(c){
+    if(c.code===calcCurrency) return;
+    var r=cachedRates[c.code]||1;
+    var v=eur*r;
+    parts.push("<b style='color:"+(c.color||"#444")+"'>"+(v>=100?Math.round(v):v.toFixed(2))+" "+c.code+"</b>");
+  });
+  result.innerHTML = parts.join(" &nbsp;|&nbsp; ");
+}
+
+var BOAT_EVENTS = {};
+
+var TRAIN_EVENTS = {};
+
+// Correspondance titre d'event timeline -> index du trajet dans la section Trains (DATA.TRAINS)
+var TRAIN_EVENT_TO_IDX = {};
+
+var PLANE_EVENTS = {};
+
+var WALK_EVENTS = {};
+
+var UBER_EVENTS = {};
+
+var GRAB_EVENTS = {};
+
+var CAL_MAP = {};
+
+var CAL_EVENTS = [];
+
+function addToCalendar(id) {
+  var ev = CAL_EVENTS.find(function(e){ return e.id === id; });
+  if(!ev) return;
+  var blob = new Blob([ev.ics], {type: "text/calendar;charset=utf-8"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = ev.id + ".ics";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+
+
+function fetchRates() {
+  if(typeof CURRENCIES==="undefined" || !CURRENCIES || !CURRENCIES.length) return;
+  var box = document.getElementById("currencyBox");
+  if(box){
+    var bh="";
+    CURRENCIES.forEach(function(c){
+      bh+='<div style="flex:1;background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07)">';
+      bh+='<div style="font-size:11px;color:#666;margin-bottom:4px">1 EUR =</div>';
+      bh+='<div id="rate-'+c.code+'" style="font-size:28px;font-weight:800;color:#1a1a1a;line-height:1">...</div>';
+      bh+='<div style="font-size:11px;font-weight:600;color:'+(c.color||"#444")+';margin-top:4px">'+c.code+'</div>';
+      bh+='</div>';
+    });
+    box.innerHTML=bh;
+  }
+  var codes = CURRENCIES.map(function(c){return c.code;}).join(",");
+  fetch("https://api.frankfurter.app/latest?from=EUR&to="+codes)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d && d.rates){
+        cachedRates = d.rates;
+        calcChange();
+        CURRENCIES.forEach(function(c){
+          var el=document.getElementById("rate-"+c.code);
+          if(el && d.rates[c.code]!=null){
+            var v=d.rates[c.code];
+            el.textContent = v>=100 ? Math.round(v) : v.toFixed(2);
+          }
+        });
+        var el_info = document.getElementById("rateInfo");
+        if(el_info){
+          var now = new Date();
+          var hh = now.getHours().toString().padStart(2,"0");
+          var mm = now.getMinutes().toString().padStart(2,"0");
+          el_info.textContent = "Taux mis a jour le " + now.toLocaleDateString("fr-FR") + " a " + hh + "h" + mm + " (source : Frankfurter / BCE)";
+        }
+      }
+    })
+    .catch(function(){
+      cachedRates = {};
+      CURRENCIES.forEach(function(c){ cachedRates[c.code]=c.fallback||1; });
+      CURRENCIES.forEach(function(c){
+        var el=document.getElementById("rate-"+c.code);
+        if(el){ var v=c.fallback||1; el.textContent = "~"+(v>=100?Math.round(v):v.toFixed(2)); }
+      });
+      var el_info = document.getElementById("rateInfo");
+      if(el_info) el_info.textContent = "Taux indicatifs (hors ligne)";
+    });
+}
+</script>
+<div id="infoOverlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);align-items:flex-end;justify-content:center" onclick="if(event.target===this)closeInfoOverlay()">
+  <div style="background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 40px;max-height:75vh;overflow-y:auto;width:100%;max-width:480px;position:relative">
+    <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:12px;padding-right:36px;line-height:1.4" id="infoTitle"></div>
+    <button onclick="closeInfoOverlay()" style="position:absolute;top:16px;right:16px;background:#f0f0f0;border:none;border-radius:50%;width:30px;height:30px;font-size:17px;cursor:pointer;color:#666;display:flex;align-items:center;justify-content:center">&#x2715;</button>
+    <div style="font-size:13px;color:#444;line-height:1.8;white-space:pre-wrap" id="infoBody"></div>
+  </div>
+</div>
+<div class="resa-modal" id="resaModal" onclick="if(event.target===this)closeResaModal()">
+  <div class="resa-sheet">
+    <button onclick="closeResaModal()" style="position:absolute;top:16px;right:16px;background:#f0f0f0;border:none;border-radius:50%;width:30px;height:30px;font-size:17px;cursor:pointer;color:#666">&#x2715;</button>
+    <div class="resa-sheet-title" id="resaModalTitle">Reservation</div>
+    <div class="resa-field"><label>NUMERO DE RESERVATION</label><input id="resaNumInput" type="text" placeholder="Ex: 3171464751"></div>
+    <div class="resa-field"><label>SITE / PLATEFORME</label><input id="resaSiteInput" type="text" placeholder="Ex: Klook, Viator, GetYourGuide..."></div>
+    <div class="resa-field"><label>INFO COMPLEMENTAIRE</label><input id="resaInfoInput" type="text" placeholder="Ex: Prelevement le 20/07, Annulation gratuite..."></div>
+    <button class="resa-save-btn" onclick="saveResaDetails()">&#10003; Confirmer la reservation</button>
+  </div>
+</div>
+
+<div class="resa-details-popup" id="resaDetailsPopup" onclick="if(event.target===this)closeResaDetails()">
+  <div class="resa-details-card">
+    <button onclick="closeResaDetails()" style="position:absolute;top:14px;right:14px;background:#f0f0f0;border:none;border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;color:#666">&#x2715;</button>
+    <div class="resa-details-name" id="resaDetailsName"></div>
+    <div id="resaDetailsBody"></div>
+    <button class="resa-edit-btn" onclick="editResaFromDetails()">&#9998; Modifier les details</button>
+  </div>
+</div>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
+</script>
+<button id="scrollTopBtn" class="scroll-top" onclick="scrollToTop()" aria-label="Remonter">↑</button>
+</body>
+</html>
