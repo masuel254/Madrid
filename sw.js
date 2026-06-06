@@ -5,12 +5,14 @@
 //     version (fini la reinstallation manuelle apres git push).
 //  -> sans reseau, on retombe sur le cache (consultable hors-ligne).
 //
-//  IMPORTANT : a chaque mise a jour du carnet, il suffit
-//  d'incrementer le numero de version ci-dessous (ex: v3 -> v4).
-//  L'ancien cache sera automatiquement supprime.
+//  IMPORTANT : a chaque mise a jour, mettre la DATE+HEURE du moment
+//  dans CACHE_VERSION ci-dessous (format madrid-AAAA-MM-JJ-HHMM).
+//  Pas besoin de connaitre la version precedente : une date plus
+//  recente est toujours consideree comme une nouvelle version.
+//  L'ancien cache est automatiquement supprime.
 // ============================================================
 
-const CACHE_VERSION = 'madrid-v3';
+const CACHE_VERSION = 'madrid-2026-06-06-0915';
 
 // Fichiers mis en cache pour le hors-ligne
 const ASSETS = [

@@ -1815,12 +1815,19 @@ if('serviceWorker' in navigator){
 <div id="versionBadge" style="text-align:center;font-size:11px;color:#888;opacity:.7;padding:14px 0 calc(80px + env(safe-area-inset-bottom,0px));letter-spacing:.5px">Carnet Madrid · MTO</div>
 <script>
 // === Version du carnet ===
-// IMPORTANT : a chaque mise a jour, incrementer ce numero
-// EN MEME TEMPS que CACHE_VERSION dans sw.js (ex: v1 -> v2).
-var APP_VERSION = "v3";
+// IMPORTANT : a chaque mise a jour, mettre la DATE+HEURE du moment
+// dans APP_VERSION (format AAAA-MM-JJ-HHMM), idealement la meme que
+// CACHE_VERSION dans sw.js. Pas besoin de connaitre la version
+// precedente : une date plus recente fait toujours foi.
+var APP_VERSION = "2026-06-06-0915";
 (function(){
   var b=document.getElementById("versionBadge");
-  if(b) b.textContent="Carnet Madrid · MTO · "+APP_VERSION;
+  if(!b) return;
+  // Affichage lisible : "MTO · 06/06/2026 09:15"
+  var lisible=APP_VERSION;
+  var m=APP_VERSION.match(/^(\d{4})-(\d{2})-(\d{2})-(\d{2})(\d{2})$/);
+  if(m){ lisible=m[3]+"/"+m[2]+"/"+m[1]+" "+m[4]+":"+m[5]; }
+  b.textContent="Carnet Madrid · MTO · "+lisible;
 })();
 </script>
 </body>
