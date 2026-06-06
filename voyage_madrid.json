@@ -142,11 +142,13 @@
           },
           {
             "time": "20h30",
-            "title": "Diner tapas - Cava Baja (La Latina)",
+            "title": "Diner - Bar Alvarez (cocido madrileno)",
             "type": "meal",
-            "cost": "~25-30 EUR",
+            "cost": "~15-20 EUR",
             "walk": true,
-            "body": "A pied : environ 10 min en montant vers La Latina. La Cava Baja, la plus fameuse rue a tapas de Madrid. Enchainer 2-3 adresses : tortilla, patatas bravas, pulpo, croquetas. Diner espagnol = tard, 20h30-23h."
+            "body": "A pied : environ 15-18 min depuis l hotel (1,3 km, donc sous la barre des 2 km), en remontant vers le Barrio de las Letras. Le Bar Alvarez (Calle de Santa Ana 10) est une taverne madrilene a l ancienne, ouverte depuis 1920. Sa specialite : le cocido madrileno, le grand pot-au-feu de Madrid, servi en trois temps (d abord la soupe aux vermicelles, puis les pois chiches, enfin les viandes et legumes). Ambiance authentique, prix justes. Y aller tot ou prevoir un peu d attente : l adresse est tres prisee pour son cocido.",
+            "uber": false,
+            "maps": "Bar Alvarez Calle de Santa Ana 10 Madrid"
           },
           {
             "time": "22h30",
@@ -562,6 +564,43 @@
             "Uber depuis Barajas : ~20-30 min",
             "Centre historique (Sol, Plaza Mayor) a pied en 10-12 min",
             "Bon point de depart vers le sud (stade du concert)"
+          ]
+        }
+      ]
+    },
+    "Diner - Bar Alvarez (cocido madrileno)": {
+      "title": "Bar Alvarez - Cocido madrileno",
+      "image": "bar-alvarez.jpg",
+      "intro": "Une taverne madrilene a l ancienne, en plein Barrio de las Letras (Calle de Santa Ana 10). Ouverte depuis 1920, c est une cervecería-taberna traditionnelle ou la cuisine maison est reine, loin des modes : nappes a carreaux, ambiance de quartier et patine des decennies. On y vient surtout pour une chose : son cocido madrileno, qui justifie souvent une petite file d attente.",
+      "voir": [
+        "Le cocido madrileno, le grand pot-au-feu de Madrid (pois chiches, viandes, legumes)",
+        "Servi a la traditionnelle, en trois temps : d abord la soupe aux vermicelles, puis les pois chiches, enfin les viandes",
+        "Les callos (tripes a la madrilene), autre classique de la maison",
+        "Une biere pression bien tiree, dans l esprit cervecería classique"
+      ],
+      "conseil": "Plat genereux et tres copieux : venir avec de l appetit, le cocido se partage mal car chacun a son service. Adresse populaire et authentique, pas un lieu gastronomique : on y va pour la tradition et le rapport qualite-prix. Peu d options vegetariennes (cuisine espagnole tres carnee). Arriver tot pour eviter l attente.",
+      "logistique": [
+        {
+          "titre": "Adresse",
+          "lignes": [
+            "Calle de Santa Ana 10, 28005 Madrid",
+            "Quartier Barrio de las Letras / La Latina (centre)"
+          ]
+        },
+        {
+          "titre": "Specialite",
+          "lignes": [
+            "Cocido madrileno (env. 15-20 EUR)",
+            "Callos, plats de cuisine maison espagnole",
+            "Taverne fondee en 1920"
+          ]
+        },
+        {
+          "titre": "Acces depuis l hotel",
+          "lignes": [
+            "A pied : environ 15-18 min (1,3 km, sous la barre des 2 km)",
+            "Itineraire par le centre historique / Barrio de las Letras",
+            "Retour de nuit : Uber court possible si fatigue"
           ]
         }
       ]
