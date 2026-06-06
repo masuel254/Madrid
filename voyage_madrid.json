@@ -178,7 +178,8 @@
             "type": "meal",
             "cost": "~6-8 EUR",
             "walk": true,
-            "uber": false
+            "uber": false,
+            "maps": "Chocolateria San Gines Pasadizo de San Gines 5 Madrid"
           },
           {
             "time": "10h30",
@@ -564,6 +565,51 @@
             "Uber depuis Barajas : ~20-30 min",
             "Centre historique (Sol, Plaza Mayor) a pied en 10-12 min",
             "Bon point de depart vers le sud (stade du concert)"
+          ]
+        }
+      ]
+    },
+    "Petit-dejeuner (hotel ou Chocolateria San Gines)": {
+      "title": "Chocolateria San Gines",
+      "image": "san-gines.jpg",
+      "intro": "L une des chocolaterias les plus celebres et les plus anciennes de Madrid, fondee en 1894, nichee dans le pasadizo de San Gines, une ruelle pietonne en plein centre, entre la Puerta del Sol et la Plaza Mayor. Le temple du chocolate con churros : on y trempe churros et porras dans un chocolat chaud epais. Tables de marbre blanc, comptoir en faience, ambiance d epoque citee dans la litterature madrilene.",
+      "voir": [
+        "Le chocolate con churros, la specialite incontournable (churros ou porras + chocolat chaud epais)",
+        "Le decor d epoque : tables de marbre blanc, faience, photos de personnalites",
+        "Le pasadizo de San Gines, ruelle pietonne pittoresque pres de l eglise San Gines",
+        "A deux pas de la Plaza Mayor et de la Puerta del Sol"
+      ],
+      "conseil": "Adresse tres touristique : il y a souvent la queue pour commander, surtout le week-end. On commande generalement au comptoir. Le 19/09 (samedi) elle est ouverte 24h/24, donc 9h30 est un bon creneau avant le Palais Royal. Comptez quelques euros pour un chocolat + churros. Le local est en partie pietonnier : venir a pied.",
+      "logistique": [
+        {
+          "titre": "Adresse",
+          "lignes": [
+            "Pasadizo de San Gines 5, 28013 Madrid",
+            "Centre historique, entre Sol et Plaza Mayor"
+          ]
+        },
+        {
+          "titre": "Specialite",
+          "lignes": [
+            "Chocolate con churros / porras (quelques euros)",
+            "Chocolaterie fondee en 1894",
+            "Metro Sol ou Opera a 3-5 min"
+          ]
+        },
+        {
+          "titre": "Horaires",
+          "lignes": [
+            "Jeu -> Dim et veilles de fete : 24h/24",
+            "Lun -> Mer : 8h00 - minuit",
+            "Le 19/09 (samedi) : ouvert 24h/24"
+          ]
+        },
+        {
+          "titre": "Acces depuis l hotel",
+          "lignes": [
+            "A pied : environ 12-15 min (sous la barre des 2 km)",
+            "Via le centre historique / Plaza Mayor",
+            "Zone pietonne : pas de depose voiture a proximite immediate"
           ]
         }
       ]

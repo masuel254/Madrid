@@ -10,7 +10,7 @@
 //  L'ancien cache sera automatiquement supprime.
 // ============================================================
 
-const CACHE_VERSION = 'madrid-v2';
+const CACHE_VERSION = 'madrid-v3';
 
 // Fichiers mis en cache pour le hors-ligne
 const ASSETS = [
