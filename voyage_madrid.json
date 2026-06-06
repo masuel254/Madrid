@@ -294,16 +294,18 @@
           },
           {
             "time": "14h00",
-            "title": "Dejeuner - Barrio de las Letras",
-            "body": "A pied : 10 min du musee. Cocido madrileno (pot-au-feu local) si l appetit suit, ou menu del dia (entree + plat + dessert + boisson, environ 15 EUR) tres repandu le midi en semaine.",
+            "title": "Dejeuner - Mercado de San Miguel",
+            "body": "A pied : environ 18-20 min depuis le Prado (moins de 2 km), en remontant vers la Plaza Mayor (ou Uber court si l appetit presse). Le Mercado de San Miguel est LE marche gastronomique iconique de Madrid, juste a cote de la Plaza Mayor, sous une magnifique halle de fer et de verre de 1916. Plus de 30 stands facon tapas gourmet : jambon iberique, fromages, croquetas, fruits de mer, huitres, pinchos, olives, patisseries, vins et vermouth. On picore d un stand a l autre, verre a la main. Tres touristique et anime, prix un peu au-dessus de la moyenne, mais l experience et le cadre valent le detour pour un dernier dejeuner madrilene.",
             "type": "meal",
-            "cost": "~15-20 EUR",
-            "walk": true
+            "cost": "~20-30 EUR",
+            "walk": true,
+            "uber": false,
+            "maps": "Mercado de San Miguel Madrid"
           },
           {
             "time": "16h00",
             "title": "Gran Via + shopping",
-            "body": "A pied : 10 min de Barrio de las Letras. La grande avenue Art deco de Madrid, le Broadway madrilene. Cinemas historiques, boutiques, facades monumentales. Photo de l immeuble Metropolis.",
+            "body": "A pied : environ 10-12 min du Mercado de San Miguel, en remontant vers le nord. La grande avenue Art deco de Madrid, le Broadway madrilene. Cinemas historiques, boutiques, facades spectaculaires. Ideal pour digerer en flanant et faire un peu de shopping.",
             "type": "activity",
             "cost": "Shopping libre",
             "walk": true
@@ -565,6 +567,52 @@
             "Uber depuis Barajas : ~20-30 min",
             "Centre historique (Sol, Plaza Mayor) a pied en 10-12 min",
             "Bon point de depart vers le sud (stade du concert)"
+          ]
+        }
+      ]
+    },
+    "Dejeuner - Mercado de San Miguel": {
+      "title": "Mercado de San Miguel",
+      "image": "san-miguel.jpg",
+      "intro": "Le marche gastronomique le plus emblematique de Madrid, juste a cote de la Plaza Mayor. Sous une superbe halle de fer et de verre de 1916, plus de 30 stands transforment le marche en une vitrine de la gastronomie espagnole. Ce n est pas un marche traditionnel ou l on fait ses courses, mais un marche gourmet pense pour la degustation : on passe d un comptoir a l autre, tapa et verre de vin a la main. Tres central, tres anime, ouvert tous les jours.",
+      "voir": [
+        "Jambon iberique, fromages affines et charcuteries espagnoles",
+        "Croquetas (morue, jambon iberique), fritures de poisson et fruits de mer",
+        "Huitres et produits de la mer, sushi, cuisines du monde revisitees",
+        "Olives, conserves fines, patisseries et douceurs",
+        "Vins espagnols, cava et vermouth maison au verre"
+      ],
+      "conseil": "Adresse tres touristique et souvent bondee, surtout le week-end et aux heures de repas : prevoir de manger debout, peu de places assises. Les prix sont au-dessus de la moyenne (un pincho des 4 EUR, un verre de vin rarement sous 3 EUR), donc on y va pour l experience et le cadre plus que pour l economie. Astuce : y aller un peu avant ou apres le coup de feu pour circuler plus facilement. On paie a chaque stand ce que l on consomme.",
+      "logistique": [
+        {
+          "titre": "Adresse",
+          "lignes": [
+            "Plaza de San Miguel, s/n, 28005 Madrid",
+            "A cote de la Plaza Mayor, centre historique"
+          ]
+        },
+        {
+          "titre": "A gouter",
+          "lignes": [
+            "Tapas gourmet, jambon, fromages, fruits de mer",
+            "Pinchos des ~4 EUR, raciones a partager",
+            "Vin, cava, vermouth au verre"
+          ]
+        },
+        {
+          "titre": "Horaires",
+          "lignes": [
+            "Tous les jours, generalement 10h - minuit",
+            "Horaires elargis le week-end (jusqu a ~2h)",
+            "Entree libre, on paie a la consommation"
+          ]
+        },
+        {
+          "titre": "Acces depuis l hotel",
+          "lignes": [
+            "A pied : environ 12-15 min (moins de 2 km)",
+            "Metro Sol ou Opera a proximite",
+            "Tout pres de la Plaza Mayor et de la Cava Baja"
           ]
         }
       ]
