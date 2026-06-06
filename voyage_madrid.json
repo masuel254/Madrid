@@ -275,27 +275,37 @@
         "hotel": "Hotel Porcel Ganivet",
         "events": [
           {
-            "time": "10h00",
-            "title": "Grasse matinee + petit-dejeuner",
-            "body": "Apres la grosse soiree, on prend son temps. Petit-dej buffet a l hotel, ou cafe de quartier a La Latina (Delic sur la Plaza de la Paja). Cafe con leche et tostada.",
+            "time": "09h00",
+            "title": "Petit-dejeuner",
+            "body": "Reveil un peu plus tot ce matin : on enchaine deux musees avant midi. Petit-dej buffet a l hotel ou cafe de quartier (cafe con leche et tostada). Journee culturelle le matin, flanerie l apres-midi.",
             "type": "meal",
             "cost": "~6-10 EUR",
             "walk": true,
             "uber": false
           },
           {
-            "time": "11h30",
+            "time": "10h00",
             "title": "Musee du Prado",
-            "body": "En Uber : environ 10 min (un peu plus de 2 km depuis l hotel). L un des plus grands musees du monde. Velazquez (Les Menines), Goya, Bosch. Choisir 2-3 chefs d oeuvre. Billet en ligne pour eviter la file.",
+            "body": "En Uber : environ 10 min (un peu plus de 2 km depuis l hotel). Le Prado ouvre a 10h. Ciblez 2-3 chefs d oeuvre pour garder du temps : Les Menines de Velazquez, les peintures noires de Goya, le Jardin des delices de Bosch. Comptez environ 1h15-1h30 a un bon rythme. Billet en ligne conseille.",
             "type": "activity",
             "cost": "~15 EUR",
             "walk": false,
             "uber": true
           },
           {
-            "time": "14h00",
+            "time": "11h45",
+            "title": "Musee Reina Sofia - Guernica",
+            "type": "activity",
+            "cost": "~12 EUR (gratuit dim. des 12h30)",
+            "uber": false,
+            "walk": true,
+            "maps": "Museo Reina Sofia Madrid",
+            "body": "A pied : environ 8 min depuis le Prado (memes 600 m, sur le Paseo del Prado). Le Reina Sofia abrite Guernica de Picasso, l une des oeuvres les plus puissantes du XXe siecle. Attention : le dimanche le musee ferme a 14h30, donc on le fait juste apres le Prado. Bonus : l entree est gratuite le dimanche a partir de 12h30 (collection permanente, dont Guernica). Vous pouvez cibler la salle 206 (Guernica) et quelques Dali / Miro a cote. Comptez 45 min a 1h."
+          },
+          {
+            "time": "13h30",
             "title": "Dejeuner - Mercado de San Miguel",
-            "body": "A pied : environ 18-20 min depuis le Prado (moins de 2 km), en remontant vers la Plaza Mayor (ou Uber court si l appetit presse). Le Mercado de San Miguel est LE marche gastronomique iconique de Madrid, juste a cote de la Plaza Mayor, sous une magnifique halle de fer et de verre de 1916. Plus de 30 stands facon tapas gourmet : jambon iberique, fromages, croquetas, fruits de mer, huitres, pinchos, olives, patisseries, vins et vermouth. On picore d un stand a l autre, verre a la main. Tres touristique et anime, prix un peu au-dessus de la moyenne, mais l experience et le cadre valent le detour pour un dernier dejeuner madrilene.",
+            "body": "A pied : environ 18-20 min depuis le Reina Sofia (moins de 2 km), en remontant vers la Plaza Mayor (ou Uber court). Le Mercado de San Miguel est LE marche gastronomique iconique de Madrid, sous une halle de fer et de verre de 1916. Plus de 30 stands facon tapas gourmet : jambon iberique, fromages, croquetas, fruits de mer, huitres, pinchos, olives, patisseries, vins et vermouth. On picore d un stand a l autre, verre a la main.",
             "type": "meal",
             "cost": "~20-30 EUR",
             "walk": true,
@@ -303,7 +313,7 @@
             "maps": "Mercado de San Miguel Madrid"
           },
           {
-            "time": "16h00",
+            "time": "15h30",
             "title": "Gran Via + shopping",
             "body": "A pied : environ 10-12 min du Mercado de San Miguel, en remontant vers le nord. La grande avenue Art deco de Madrid, le Broadway madrilene. Cinemas historiques, boutiques, facades spectaculaires. Ideal pour digerer en flanant et faire un peu de shopping.",
             "type": "activity",
@@ -311,7 +321,7 @@
             "walk": true
           },
           {
-            "time": "18h30",
+            "time": "18h00",
             "title": "Coucher de soleil - Temple de Debod",
             "body": "En Uber : environ 12 min (plus de 2 km). Temple egyptien authentique, le meilleur spot coucher de soleil de la ville, reflets dans les bassins. Gratuit.",
             "type": "activity",
@@ -339,7 +349,7 @@
           }
         ],
         "tip": "Le Prado est gratuit en fin de journee (generalement 18h-20h en semaine) mais tres charge. Le matin avec billet reste plus confortable. Preparer les bagages ce soir : vol tot demain.",
-        "note": "Demain : check-out, derniere balade rapide, puis Uber vers Barajas. Vol Charleroi a 13h20 (retour maison vers 18h30-19h)."
+        "note": "Matinee deux musees (Prado + Guernica), apres-midi flanerie, derniere soiree festive. Demain : retour."
       },
       {
         "id": 4,
@@ -567,6 +577,51 @@
             "Uber depuis Barajas : ~20-30 min",
             "Centre historique (Sol, Plaza Mayor) a pied en 10-12 min",
             "Bon point de depart vers le sud (stade du concert)"
+          ]
+        }
+      ]
+    },
+    "Musee Reina Sofia - Guernica": {
+      "title": "Museo Reina Sofia - Guernica",
+      "image": "reina-sofia.jpg",
+      "intro": "Le grand musee d art moderne et contemporain de Madrid, troisieme sommet du Triangle d Or de l art avec le Prado et le Thyssen. On y vient avant tout pour une oeuvre : Guernica de Pablo Picasso (1937), immense toile de pres de 3,5 x 7,8 m peinte en reaction au bombardement de la ville basque de Guernica pendant la guerre civile espagnole. Une des oeuvres les plus marquantes du XXe siecle, exposee dans une salle qui lui est entierement dediee (salle 206).",
+      "voir": [
+        "Guernica de Picasso, salle 206 (photos interdites dans cette salle)",
+        "Des oeuvres de Salvador Dali (dont Visage du Grand Masturbateur)",
+        "Joan Miro, Juan Gris et l avant-garde espagnole du XXe siecle",
+        "Les vues sur Madrid depuis les ascenseurs vitres du batiment Sabatini"
+      ],
+      "conseil": "Le 20/09 est un DIMANCHE : le musee ferme tot, a 14h30. Il faut donc le faire le matin, juste apres le Prado (8 min a pied, meme avenue). Bonne nouvelle : l entree est GRATUITE le dimanche a partir de 12h30 (collection permanente, Guernica inclus) ; avant 12h30 c est environ 12 EUR. Si vous visez le gratuit, calez l arrivee vers 12h15-12h30. Pour aller a l essentiel, ciblez Guernica puis quelques Dali/Miro : 45 min a 1h suffisent. Fermeture des caisses 30 min avant.",
+      "logistique": [
+        {
+          "titre": "Adresse",
+          "lignes": [
+            "Calle de Santa Isabel 52, 28012 Madrid",
+            "Triangle d Or de l art, pres de la gare d Atocha"
+          ]
+        },
+        {
+          "titre": "Horaires (dimanche)",
+          "lignes": [
+            "Dimanche : 10h00 - 14h30 (ferme tot !)",
+            "Ferme le mardi",
+            "Entree gratuite le dimanche des 12h30"
+          ]
+        },
+        {
+          "titre": "Tarifs",
+          "lignes": [
+            "Plein tarif : environ 12 EUR",
+            "Gratuit : -18 ans, etudiants -25 ans, +65 ans",
+            "Gratuit dimanche apres 12h30"
+          ]
+        },
+        {
+          "titre": "Acces depuis le Prado",
+          "lignes": [
+            "A pied : environ 8 min (600 m, sur le Paseo del Prado)",
+            "Metro Atocha (ligne 1) a proximite",
+            "Enchainement logique apres la visite du Prado"
           ]
         }
       ]
