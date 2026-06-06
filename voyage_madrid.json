@@ -81,8 +81,8 @@
         "dayNum": 1,
         "date": "18 SEPT",
         "label": "18 SEPT - ARRIVEE MADRID",
-        "location": "La Latina - Plaza Mayor - Mercado San Miguel",
-        "hotel": "Vibrant Madrid Historic Suite 3BR",
+        "location": "Puerta de Toledo - La Latina - Plaza Mayor",
+        "hotel": "Hotel Porcel Ganivet",
         "events": [
           {
             "time": "09h30",
@@ -121,23 +121,24 @@
             "type": "transport",
             "cost": "~30-35 EUR Uber",
             "uber": true,
-            "maps": "Costanilla de San Pedro 12 Madrid",
-            "body": "Recuperation des bagages (T1 pour Ryanair en general). Uber depuis l aeroport vers le logement a La Latina : environ 25-30 min selon trafic, depose au plus pres de Costanilla de San Pedro. Plus simple que le metro avec les valises en fin de journee. La rue est etroite et pietonne par endroits : le chauffeur depose a proximite."
+            "maps": "Hotel Porcel Ganivet Calle de Toledo 111 Madrid",
+            "body": "Recuperation des bagages (T1 pour Ryanair en general). Uber depuis l aeroport vers l hotel (Puerta de Toledo) : environ 25-30 min selon trafic. Plus simple que le metro avec les valises. Depose devant l hotel, Calle de Toledo 111."
           },
           {
             "time": "17h45",
-            "title": "Check-in - Vibrant Madrid Historic Suite 3BR",
+            "title": "Check-in - Hotel Porcel Ganivet",
             "type": "hotel",
             "cost": "Reserve",
-            "body": "Costanilla de San Pedro 12, en plein coeur de La Latina. Logement Airbnb entier. Check-in a partir de 15h (on arrive apres, chambre prete). Hote : Deanne. Suite de 3 chambres pour 4 voyageurs. Recuperer les cles selon les instructions Airbnb, deposer les valises. Code de confirmation HMMKSY28M9."
+            "body": "Calle de Toledo 111-113, quartier Puerta de Toledo, en bas de La Latina. Hotel 3 etoiles reserve sur Booking (num 5269090320). Check-in, depot des valises. L hotel a une piscine sur le toit et un bar : parfait pour un premier verre avec vue avant de sortir."
           },
           {
             "time": "19h00",
             "title": "Apero - Plaza de Santa Ana",
             "type": "meal",
             "cost": "~10-15 EUR",
-            "uber": true,
-            "body": "En Uber : 6-8 min depuis La Latina (ou 12 min a pied). Quartier des Lettres (Barrio de las Letras). Terrasses animees en debut de soiree. Cana (biere pression) souvent accompagnee d une tapa offerte. Bon sas de decompression apres le voyage."
+            "uber": false,
+            "body": "A pied : environ 15 min en remontant par La Latina (ou Uber court si fatigue). Quartier des Lettres. Terrasses animees en debut de soiree. Cana (biere pression) souvent accompagnee d une tapa offerte. Bon sas de decompression apres le voyage.",
+            "walk": true
           },
           {
             "time": "20h30",
@@ -145,7 +146,7 @@
             "type": "meal",
             "cost": "~25-30 EUR",
             "walk": true,
-            "body": "A pied : 3-4 min du logement ! La Cava Baja, la plus fameuse rue a tapas de Madrid, est juste a cote. Enchainer 2-3 adresses : tortilla, patatas bravas, pulpo, croquetas. Diner espagnol = tard, 20h30-23h. Enorme avantage du logement : tout est a pied le soir."
+            "body": "A pied : environ 10 min en montant vers La Latina. La Cava Baja, la plus fameuse rue a tapas de Madrid. Enchainer 2-3 adresses : tortilla, patatas bravas, pulpo, croquetas. Diner espagnol = tard, 20h30-23h."
           },
           {
             "time": "22h30",
@@ -153,11 +154,11 @@
             "type": "show",
             "cost": "~15-25 EUR",
             "walk": true,
-            "body": "Premiere soiree en douceur, autour du logement. La Latina et le Barrio de las Letras concentrent les bars a musique live et ambiance ou l on peut danser. Black Mamba (Costanilla de San Pedro 5, a 30 m) ou remonter vers Huertas. Retour a pied au logement tres facile."
+            "body": "Soiree dans La Latina / Barrio de las Letras (bars a musique live, ambiance ou l on peut danser). A 10-15 min a pied de l hotel ; pour le retour de nuit, un Uber court est plus confortable."
           }
         ],
-        "tip": "Gros atout du logement : en plein La Latina, la Cava Baja (tapas) et la Plaza Mayor sont a 3-5 min a pied. Metro La Latina (L5) a 1-2 min. A Madrid on dine tard (20h30-23h).",
-        "note": "Vol arrive en fin d apres-midi : soiree allegee mais centree sur les essentiels, tout a pied. Demain : Palais Royal, Retiro et le concert de Shakira ! Garder de l energie."
+        "tip": "Hotel a la Puerta de Toledo : metro Puerta de Toledo a 150 m, Plaza Mayor et Sol a 10-12 min a pied, marche du Rastro a 5 min. Regle de la balade : a pied en centre (<2 km), Uber au-dela. Piscine sur le toit a l hotel !",
+        "note": "Vol arrive en fin d apres-midi : soiree allegee, centree sur les essentiels. Demain : Palais Royal, Retiro et le concert de Shakira !"
       },
       {
         "id": 2,
@@ -166,64 +167,71 @@
         "date": "19 SEPT",
         "label": "19 SEPT - MADRID + SHAKIRA",
         "location": "Palais Royal - Retiro - CONCERT SHAKIRA",
-        "hotel": "Vibrant Madrid Historic Suite 3BR",
+        "hotel": "Hotel Porcel Ganivet",
         "events": [
           {
             "time": "09h30",
-            "title": "Petit-dejeuner churros - San Gines",
-            "body": "Chocolateria San Gines, institution depuis 1894, a 8-10 min a pied du logement (via Plaza Mayor). Churros et porras trempes dans le chocolat epais. Le petit-dej madrilene par excellence.",
+            "title": "Petit-dejeuner (hotel ou Chocolateria San Gines)",
+            "body": "Option 1 : petit-dej buffet a l hotel (pratique). Option 2 : Chocolateria San Gines (institution depuis 1894), a environ 12 min a pied via Plaza Mayor, pour des churros tres reputes. Au choix selon l envie.",
             "type": "meal",
             "cost": "~6-8 EUR",
-            "walk": true
+            "walk": true,
+            "uber": false
           },
           {
             "time": "10h30",
             "title": "Palais Royal de Madrid",
-            "body": "A pied : 10 min de San Gines (ou 12 min direct du logement). Plus grand palais royal d Europe occidentale (3418 pieces). Salle du trone, pharmacie royale, armurerie. Arriver tot pour eviter la file. Reserver en ligne conseille.",
+            "body": "A pied : environ 15 min depuis l hotel (ou Uber court). Plus grand palais royal d Europe occidentale. Salle du trone, pharmacie royale, armurerie. Arriver tot pour eviter la file. Reserver en ligne conseille.",
             "type": "activity",
             "cost": "~14 EUR",
-            "walk": true
+            "walk": true,
+            "uber": false
           },
           {
             "time": "12h30",
             "title": "Cathedrale de l Almudena",
-            "body": "A pied : 3 min du Palais Royal, juste en face. Interieur aux plafonds colores tres modernes. Entree a prix libre. Vue sympa depuis le parvis. On est tout pres du logement (La Latina en contrebas).",
+            "body": "A pied : 3 min du Palais Royal, juste en face. Interieur aux plafonds colores tres modernes. Entree a prix libre. Vue sympa depuis le parvis.",
             "type": "activity",
             "cost": "Don libre",
-            "walk": true
+            "walk": true,
+            "uber": false
           },
           {
             "time": "13h30",
             "title": "Dejeuner leger - Mercado de la Cebada",
-            "body": "A pied : 5 min du logement (en plein La Latina) ! Marche de quartier authentique. Manger leger ce midi : grosse soiree concert a venir. Bien s hydrater.",
+            "body": "A pied : environ 10 min de l hotel, en plein La Latina. Marche de quartier authentique. Manger leger ce midi : grosse soiree concert a venir. Bien s hydrater.",
             "type": "meal",
             "cost": "~15 EUR",
-            "walk": true
+            "walk": true,
+            "uber": false
           },
           {
             "time": "15h30",
             "title": "Parc du Retiro",
-            "body": "En Uber : 12 min depuis La Latina. Le poumon vert de Madrid. Barque sur le grand bassin, Palais de Cristal (1887), jardins. Sieste a l ombre pour recharger avant le concert.",
+            "body": "En Uber : environ 12 min depuis la Puerta de Toledo (plus de 2 km). Le poumon vert de Madrid. Barque sur le grand bassin, Palais de Cristal, jardins. Sieste a l ombre pour recharger avant le concert.",
             "type": "activity",
             "cost": "GRATUIT",
-            "uber": true
+            "uber": true,
+            "walk": false
           },
           {
             "time": "17h30",
-            "title": "Retour logement - Pause et preparation",
-            "body": "En Uber : 12 min. Retour a La Latina. Douche, repos, recharge telephone et batterie externe. Verifier les billets Shakira (e-ticket telecharge HORS-LIGNE).",
+            "title": "Retour hotel - Pause et preparation",
+            "body": "En Uber : environ 12 min. Retour a l hotel. Douche, repos, eventuellement piscine sur le toit, recharge telephone et batterie externe. Verifier les billets Shakira (e-ticket telecharge HORS-LIGNE).",
             "type": "hotel",
             "cost": "---",
-            "uber": true
+            "uber": true,
+            "walk": false
           },
           {
             "time": "18h30",
             "title": "Depart vers l Estadio Shakira",
-            "body": "En Uber : depuis La Latina, compter 35-50 min vers le stade (Iberdrola Music, Villaverde, sud de Madrid). Alternative : Cercanias depuis Atocha (10 min du logement) vers Villaverde. PARTIR TOT : 50 000 personnes attendues.",
+            "body": "En Uber : depuis la Puerta de Toledo, compter 30-45 min vers le stade (Iberdrola Music, Villaverde, sud de Madrid). Alternative : Cercanias. PARTIR TOT : 50 000 personnes attendues. La Puerta de Toledo est plutot bien placee vers le sud.",
             "type": "transport",
             "cost": "~5 EUR",
             "maps": "Iberdrola Music Madrid",
-            "uber": true
+            "uber": true,
+            "walk": false
           },
           {
             "time": "19h30",
@@ -248,7 +256,7 @@
             "type": "transport",
             "cost": "~5-15 EUR",
             "uber": true,
-            "maps": "Costanilla de San Pedro 12 Madrid"
+            "maps": "Hotel Porcel Ganivet Madrid"
           }
         ],
         "tip": "Le jour du concert : billet telecharge hors-ligne, batterie externe chargee, bouteille d eau, chaussures confortables. Partir 2h avant le show (site excentre + controles + 50 000 personnes). Arriver au moins 1h avant comme prevu.",
@@ -261,23 +269,25 @@
         "date": "20 SEPT",
         "label": "20 SEPT - ART ET FLANERIE",
         "location": "Prado - Gran Via - Temple de Debod",
-        "hotel": "Vibrant Madrid Historic Suite 3BR",
+        "hotel": "Hotel Porcel Ganivet",
         "events": [
           {
             "time": "10h00",
-            "title": "Grasse matinee + petit-dejeuner de quartier",
-            "body": "Apres la grosse soiree, on prend son temps. Petit-dejeuner dans un cafe de La Latina (Delic sur la Plaza de la Paja, ou un comptoir de la Cava Baja). Cafe con leche et tostada.",
+            "title": "Grasse matinee + petit-dejeuner",
+            "body": "Apres la grosse soiree, on prend son temps. Petit-dej buffet a l hotel, ou cafe de quartier a La Latina (Delic sur la Plaza de la Paja). Cafe con leche et tostada.",
             "type": "meal",
             "cost": "~6-10 EUR",
-            "walk": true
+            "walk": true,
+            "uber": false
           },
           {
             "time": "11h30",
             "title": "Musee du Prado",
-            "body": "A pied : 15 min du logement (via Barrio de las Letras), ou 8 min en Uber. L un des plus grands musees du monde. Velazquez (Les Menines), Goya, Bosch. Choisir 2-3 chefs d oeuvre. Billet en ligne pour eviter la file.",
+            "body": "En Uber : environ 10 min (un peu plus de 2 km depuis l hotel). L un des plus grands musees du monde. Velazquez (Les Menines), Goya, Bosch. Choisir 2-3 chefs d oeuvre. Billet en ligne pour eviter la file.",
             "type": "activity",
             "cost": "~15 EUR",
-            "walk": true
+            "walk": false,
+            "uber": true
           },
           {
             "time": "14h00",
@@ -298,10 +308,11 @@
           {
             "time": "18h30",
             "title": "Coucher de soleil - Temple de Debod",
-            "body": "En Uber : 12 min. Temple egyptien authentique offert par l Egypte, remonte a Madrid. Le meilleur spot coucher de soleil de la ville, reflets dans les bassins. Gratuit.",
+            "body": "En Uber : environ 12 min (plus de 2 km). Temple egyptien authentique, le meilleur spot coucher de soleil de la ville, reflets dans les bassins. Gratuit.",
             "type": "activity",
             "cost": "GRATUIT",
-            "uber": true
+            "uber": true,
+            "walk": false
           },
           {
             "time": "20h30",
@@ -323,7 +334,7 @@
           }
         ],
         "tip": "Le Prado est gratuit en fin de journee (generalement 18h-20h en semaine) mais tres charge. Le matin avec billet reste plus confortable. Preparer les bagages ce soir : vol tot demain.",
-        "note": "Demain : check-out, derniere balade rapide a La Latina, puis Uber vers Barajas. Vol Charleroi a 13h20 (retour maison vers 18h30-19h)."
+        "note": "Demain : check-out, derniere balade rapide, puis Uber vers Barajas. Vol Charleroi a 13h20 (retour maison vers 18h30-19h)."
       },
       {
         "id": 4,
@@ -339,7 +350,7 @@
             "title": "Petit-dejeuner + check-out",
             "type": "hotel",
             "cost": "---",
-            "body": "Petit-dej, verifier le logement (cles, chargeurs, affaires). Check-out au plus tard 16h, mais on part bien avant aujourd hui (vol a 13h20). Suivre les consignes de depart de l hote (Deanne) : ou laisser les cles, fenetres, etc."
+            "body": "Petit-dej buffet a l hotel, verifier la chambre (coffre, chargeurs). Check-out. On part bien avant l heure limite aujourd hui (vol a 13h20). Possibilite de laisser les valises a la reception pour une derniere mini-balade."
           },
           {
             "time": "09h45",
@@ -347,7 +358,7 @@
             "type": "activity",
             "cost": "Souvenirs",
             "walk": true,
-            "body": "A pied autour du logement : dernier cafe, derniers achats. Mercado de la Cebada ou les boutiques de la Cava Baja pour turron, jambon sous vide (verifier les regles bagage cabine). Ne pas trainer, horaire serre."
+            "body": "A pied autour de l hotel : dernier cafe, derniers achats. Marche du Rastro (a 5 min) si c est un dimanche, ou boutiques vers La Latina pour turron, jambon sous vide (verifier regles bagage cabine). Ne pas trainer."
           },
           {
             "time": "10h45",
@@ -356,7 +367,7 @@
             "cost": "~30-35 EUR Uber",
             "uber": true,
             "maps": "Aeropuerto Adolfo Suarez Madrid-Barajas T1",
-            "body": "Uber depuis le logement vers l aeroport : 25-35 min selon trafic. Plus sur que le metro avec les bagages et un horaire serre. Verifier le terminal (Ryanair = souvent T1)."
+            "body": "Uber depuis l hotel (Puerta de Toledo) vers l aeroport : 20-30 min selon trafic. Plus sur que le metro avec les bagages. Verifier le terminal (Ryanair = souvent T1)."
           },
           {
             "time": "11h20",
@@ -404,9 +415,9 @@
     "RESAS": [
       {
         "date": "18-21 SEPT",
-        "name": "Logement Airbnb - Vibrant Madrid Historic Suite 3BR",
-        "detail": "Costanilla de San Pedro 12, La Latina - Hote Deanne - Check-in 15h / Check-out 16h",
-        "deadline": "Reserve (annulation gratuite jusqu au 17/09 15h)",
+        "name": "Hotel Porcel Ganivet (Booking)",
+        "detail": "Calle de Toledo 111-113, Puerta de Toledo - Hotel 3* - Check-in / Check-out selon Booking",
+        "deadline": "Reserve",
         "color": "#1a7c4a"
       },
       {
@@ -500,56 +511,57 @@
     ]
   },
   "INFO_DATA": {
-    "Vibrant Madrid Historic Suite 3BR": {
-      "title": "Vibrant Madrid Historic Suite 3BR",
-      "image": "airbnb-madrid.jpg",
-      "intro": "Votre logement Airbnb entier pour les 3 nuits a Madrid, en plein coeur de La Latina, le quartier le plus typique et le plus vivant du centre historique. Une suite de 3 chambres (jusqu a 4 voyageurs) sur la Costanilla de San Pedro, a quelques metres de la fameuse rue a tapas Cava Baja et a deux pas de la Plaza Mayor. Emplacement ideal : presque tout se fait a pied, et le metro La Latina est a 1-2 min.",
+    "Hotel Porcel Ganivet": {
+      "title": "Hotel Porcel Ganivet",
+      "image": "hotel-ganivet.jpg",
+      "intro": "Votre hotel pour les 3 nuits a Madrid : le Porcel Ganivet, un 3 etoiles moderne situe a la Puerta de Toledo, en bas du quartier historique de La Latina. Reserve sur Booking. Chambres climatisees et insonorisees, et surtout une piscine sur le toit avec vue. Emplacement central : metro Puerta de Toledo a 150 m, et le coeur de Madrid accessible a pied.",
       "voir": [
-        "La Cava Baja, la plus celebre rue a tapas de Madrid, a 3-4 min a pied",
-        "La Plaza Mayor et la Puerta del Sol a 8-9 min a pied",
-        "Le Mercado de la Cebada (marche de quartier authentique) a 3 min",
-        "La Plaza de la Paja et le quartier medieval de La Latina, juste autour"
+        "Le marche du Rastro (le fameux marche aux puces du dimanche) a 5 min a pied",
+        "La Cava Baja et le quartier de La Latina a 10 min a pied",
+        "La Plaza Mayor et la Puerta del Sol a 10-12 min a pied",
+        "Le Palais Royal et la cathedrale de l Almudena a environ 1 km"
       ],
-      "conseil": "Quartier tres anime le soir (bars, terrasses) : ambiance garantie mais peut etre bruyant le week-end, prevoir des bouchons d oreilles si vous etes sensible. Rue etroite et en partie pietonne : pour l Uber, le chauffeur depose a proximite. Telecharger les instructions d arrivee de l hote (Deanne) avant le voyage.",
+      "conseil": "Profitez de la piscine sur le toit et du petit-dej buffet. Pour les visites : tout le centre historique se fait a pied (moins de 2 km), mais le Retiro, le Prado, le temple de Debod et le stade du concert sont plus loin : privilegier l Uber au-dela de 2 km. Metro Puerta de Toledo (ligne 5) a 150 m pour les trajets economiques.",
       "logistique": [
         {
           "titre": "Reservation",
           "lignes": [
-            "Plateforme : Airbnb",
-            "Code de confirmation : HMMKSY28M9",
-            "Hote : Deanne",
-            "Annulation gratuite jusqu au 17/09 a 15h00"
+            "Plateforme : Booking.com",
+            "Numero de reservation : 5269090320",
+            "Hotel 3 etoiles - chaine Porcel"
           ]
         },
         {
           "titre": "Adresse",
           "lignes": [
-            "Costanilla de San Pedro 12, 28005 Madrid",
-            "Quartier de La Latina (centre historique)"
+            "Calle de Toledo 111-113, 28005 Madrid",
+            "Quartier Puerta de Toledo / La Latina (centre)"
           ]
         },
         {
           "titre": "Sejour",
           "lignes": [
             "18 -> 21 septembre 2026 (3 nuits)",
-            "Check-in a partir de 15h00, check-out 16h00",
-            "4 voyageurs - logement entier (3 chambres)"
+            "2 adultes - chambre double ou lits jumeaux (16 m2)",
+            "Climatisation, insonorisation, minibar, douche, wifi"
+          ]
+        },
+        {
+          "titre": "Services hotel",
+          "lignes": [
+            "Piscine sur le toit (saisonniere)",
+            "Petit-dejeuner buffet, bar et snack-bar",
+            "Reception 24h/24, consigne a bagages",
+            "Parking prive sur place (avec supplement)"
           ]
         },
         {
           "titre": "Acces",
           "lignes": [
-            "Metro La Latina (ligne 5) a 1-2 min a pied",
-            "Cercanias / metro vers Barajas et le stade Shakira",
-            "Uber depuis Barajas : ~25-30 min (~30-35 EUR)",
-            "Commerces, marche et tapas a moins de 5 min a pied"
-          ]
-        },
-        {
-          "titre": "Contact hote",
-          "lignes": [
-            "Messagerie via l application Airbnb (hote : Deanne)",
-            "Recuperation des cles selon les instructions envoyees avant l arrivee"
+            "Metro Puerta de Toledo (ligne 5) a 150 m",
+            "Uber depuis Barajas : ~20-30 min",
+            "Centre historique (Sol, Plaza Mayor) a pied en 10-12 min",
+            "Bon point de depart vers le sud (stade du concert)"
           ]
         }
       ]
@@ -851,9 +863,9 @@
   },
   "resa_details": {
     "resa0": {
-      "num": "HMMKSY28M9",
-      "site": "Airbnb",
-      "info": "Vibrant Madrid Historic Suite 3BR - Costanilla de San Pedro 12, La Latina - Hote Deanne - Check-in 15h / Check-out 16h"
+      "num": "5269090320",
+      "site": "Booking.com",
+      "info": "Hotel Porcel Ganivet - Calle de Toledo 111-113, Puerta de Toledo - Hotel 3 etoiles - 2 adultes, chambre double/lits jumeaux"
     },
     "resa1": {
       "num": "2110614",
