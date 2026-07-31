@@ -12,7 +12,7 @@
 //  L'ancien cache est automatiquement supprime.
 // ============================================================
 
-const CACHE_VERSION = 'madrid-2026-06-06-1342';
+const CACHE_VERSION = 'madrid-2026-07-31-1145';
 
 // Fichiers mis en cache pour le hors-ligne
 const ASSETS = [
