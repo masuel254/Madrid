@@ -487,6 +487,7 @@ details.acc[open] .acc-chevron{transform:rotate(180deg)}
   <div class="prog"><div class="prog-fill" id="pf"></div></div>
   <div id="main">
     <div class="scr on" id="s-it"><div class="dw" id="dl"></div></div>
+    <div class="scr" id="s-ci"><div id="cic"></div></div>
     <div class="scr" id="s-dy"><div id="dd2"></div></div>
     <div class="scr" id="s-in"><div class="iw" id="ic"></div></div>
     <div class="scr" id="s-ti"><div class="tw" id="tc2"></div></div>
@@ -518,7 +519,7 @@ var MAPS_CITY = "Madrid";
 // IMPORTANT : a chaque mise a jour, mettre la DATE+HEURE du moment ici
 // (format AAAA-MM-JJ-HHMM), idealement la meme que CACHE_VERSION dans sw.js.
 // Pas besoin de connaitre la version precedente : une date plus recente fait foi.
-var APP_VERSION = "2026-07-31-1330";
+var APP_VERSION = "2026-07-31-1600";
 var CURRENCIES = [];
 var TRICOUNT_URL = "https://tricount.com/tOXKlLsUIrPsznZnNC";
 var CONSEILS = ["Attention aux pickpockets dans le metro et les zones touristiques (Sol, Gran Via, Plaza Mayor).", "Diner tardif : en Espagne on mange souvent entre 21h et 22h30. Caler ses horaires sur le rythme local.", "Beaucoup de lieux ferment tard : la ville est tres vivante le soir et la nuit.", "Metro : dernier train a 1h30 du matin. Apres tes soirees dansantes, prevois un Uber ou un taxi pour rentrer.", "Eau du robinet potable et reputee a Madrid : inutile d acheter de l eau en bouteille.", "Sieste : certains petits commerces ferment l apres-midi (env. 14h-17h). Les grandes enseignes et le centre restent ouverts."];
@@ -643,7 +644,7 @@ function getTid(){var n=new Date(),s=new Date(2026,7,13),d=Math.floor((n-s)/8640
 function updProg(){var t=getTid();document.getElementById("pf").style.width=(t?(t-1)/16*100:0)+"%"}
 
 function showS(k){
-  ["it","dy","in","ti","pl"].forEach(function(x){
+  ["it","ci","dy","in","ti","pl"].forEach(function(x){
     document.getElementById("s-"+x).classList.remove("on");
     var nb=document.getElementById("n-"+x);
     if(nb)nb.classList.remove("on");
@@ -652,7 +653,7 @@ function showS(k){
   var nb2=document.getElementById("n-"+k);
   if(nb2)nb2.classList.add("on");
   var bb=document.getElementById("backBtn");
-  bb.style.display=k==="dy"?"block":"none";
+  bb.style.display=(k==="dy"||k==="ci")?"block":"none";
   var nb2=document.getElementById("nextBtn");
   if(k==="dy"){
     var idx=curDay?DYS.findIndex(function(d){return d.id===curDay.id}):-1;
@@ -666,7 +667,7 @@ function showS(k){
   }
   var tt=document.getElementById("topTitle");
   var ts=document.getElementById("topSub");
-  if(k==="dy"){tt.textContent="";ts.textContent=""}
+  if(k==="dy"||k==="ci"){tt.textContent="";ts.textContent=""}
   else{var nm={it:"Itineraire",in:"Vols et Reservations",ti:"Outils",pl:"Metro Madrid"};tt.textContent=nm[k]||"";ts.textContent="MADRID & SHAKIRA 2026"}
   document.getElementById("main").scrollTop=0;
   if(k==="ti"){ setTimeout(fetchRates,100); setTimeout(fetchWeather,200); updateClocks(); }
@@ -765,12 +766,12 @@ function buildDays(){
   DYS.forEach(function(day){
     if(day.chap!==last){
       var ch=CHS.find(function(c){return c.id===day.chap});
-      var chIntroKey=(typeof INFO_DATA!=="undefined" && INFO_DATA["__"+ch.city+"__"])?("__"+ch.city+"__"):null;
-      var chClick=chIntroKey?(' onclick="openInfo(this)" data-key="'+chIntroKey+'" style="cursor:pointer"'):'';
-      var chArrow=chIntroKey?'<div style="margin-left:auto;color:#fff;opacity:.85;font-size:20px;align-self:center">&#8250;</div>':'';
-      var chSub=(chIntroKey && ch.subtitle)?'<div class="ch-d" style="color:#fff;opacity:.9;text-transform:none;letter-spacing:.3px;font-weight:500;margin-top:1px">'+e(ch.subtitle)+'</div>':'';
+      var chHasIntro=(typeof INFO_DATA!=="undefined" && INFO_DATA["__"+ch.city+"__"]);
+      var chClick=chHasIntro?(' onclick="openCityIntro(\''+ch.id+'\')" style="cursor:pointer"'):'';
+      var chDisc=chHasIntro?'<div style="margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;line-height:1"><span style="color:'+ch.color+';font-size:9px;font-weight:700;letter-spacing:1.5px">DECOUVRIR</span><span style="color:#fff;opacity:.85;font-size:20px;margin-top:2px">&#8250;</span></div>':'';
+      var chSub=(chHasIntro && ch.subtitle)?'<div class="ch-d" style="color:#fff;opacity:.9;text-transform:none;letter-spacing:.3px;font-weight:500;margin-top:1px">'+e(ch.subtitle)+'</div>':'';
       h+='<div class="ch"'+chClick+'><div class="ch-n" style="background:'+ch.color+'"><span class="ch-nn">'+ch.num+'</span></div>';
-      h+='<div><div class="ch-city">'+e(ch.city)+'</div><div class="ch-d" style="color:'+ch.color+'">'+e(ch.dates)+'</div>'+chSub+'</div>'+chArrow+'</div>';
+      h+='<div><div class="ch-city">'+e(ch.city)+'</div><div class="ch-d" style="color:'+ch.color+'">'+e(ch.dates)+'</div>'+chSub+'</div>'+chDisc+'</div>';
       last=day.chap;
     }
     var ch=CHS.find(function(c){return c.id===day.chap});
@@ -800,6 +801,80 @@ function placeQuery(title){
   t = t.split(" / ")[0];
   t = t.replace(/^(Check-?in|Check-?out|Arrivee|Arriv\u00e9e|Depart|D\u00e9part|Visite libre|Visite|Decouverte|D\u00e9couverte|Balade|Promenade|Retour|Installation|Diner|D\u00eener|Dejeuner|D\u00e9jeuner|Petit-dejeuner|Petit-d\u00e9jeuner|Brunch|Apero|Ap\u00e9ro|Soiree|Soir\u00e9e|Coucher de soleil|Grasse matinee|Grasse matin\u00e9e|Derniere|Derni\u00e8re|Dernier)\s+/i,"");
   return t.trim();
+}
+
+function openCityIntro(chapId){
+  var ch=CHS.find(function(c){return c.id===chapId});
+  if(!ch) return;
+  var d=(typeof INFO_DATA!=="undefined")?INFO_DATA["__"+ch.city+"__"]:null;
+  if(!d){ return; }
+  var H="";
+
+  // Header colore facon carte chapitre
+  H+='<div class="dh2" style="background:'+ch.color+'">';
+  H+='<div class="dhr" style="position:relative">';
+  H+='<div class="dbg"><span class="dbg-j">ETAPE</span><span class="dbg-n">'+e(String(ch.num))+'</span></div>';
+  H+='<div class="dd"><div class="dd-d">'+e(ch.city)+'</div><div class="dd-l" style="color:rgba(255,255,255,.85)">'+e(ch.dates)+'</div></div>';
+  H+='</div></div>';
+
+  // Grande image avec titre + sous-titre en overlay
+  if(d.image){
+    H+='<div style="margin:14px 16px 0;position:relative;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-md)">';
+    H+='<div style="width:100%;height:210px;background:#EFE9DC">';
+    H+='<img src="./'+d.image+'" style="width:100%;height:100%;object-fit:cover;display:block" alt="'+e(ch.city)+'" '
+      +'onerror="this.style.display=\'none\'">';
+    H+='</div>';
+    H+='<div style="position:absolute;left:0;right:0;bottom:0;padding:34px 18px 16px;background:linear-gradient(180deg,transparent,rgba(26,23,20,.82))">';
+    H+='<div style="font-family:\'Hiragino Mincho ProN\',Georgia,serif;font-size:30px;font-weight:600;color:#fff;letter-spacing:1px;line-height:1">'+e(ch.city)+'</div>';
+    if(ch.subtitle) H+='<div style="font-size:13px;color:rgba(255,255,255,.9);margin-top:6px">'+e(ch.subtitle)+'</div>';
+    H+='</div></div>';
+  }
+
+  // Corps
+  H+='<div style="padding:16px">';
+
+  // Intro (presentation facon agence)
+  if(d.intro){
+    H+='<div style="font-size:14px;color:#3A332C;line-height:1.75;margin-bottom:18px">'+e(d.intro)+'</div>';
+  }
+
+  // AU PROGRAMME DE VOTRE SEJOUR (liste "voir")
+  if(d.voir && d.voir.length){
+    H+='<div style="font-size:11px;font-weight:700;color:'+ch.color+';letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">Au programme de votre sejour</div>';
+    H+='<div style="font-size:13.5px;color:#3A332C;line-height:1.7;margin-bottom:8px">';
+    d.voir.forEach(function(it){
+      H+='<div style="display:flex;gap:9px;margin-bottom:9px"><span style="color:'+ch.color+';flex-shrink:0;font-weight:700">&bull;</span><span>'+e(it)+'</span></div>';
+    });
+    H+='</div>';
+  }
+
+  // Conseil (encadre) si present
+  if(d.conseil){
+    H+='<div style="background:#FAF6EE;border-left:3px solid var(--gold);border-radius:10px;padding:13px 15px;font-size:13px;color:#3A332C;line-height:1.7;margin:6px 0 8px">'+e(d.conseil)+'</div>';
+  }
+
+  // Separateur dore
+  H+='<div style="display:flex;align-items:center;gap:8px;margin:22px 0 16px"><span style="flex:1;height:1px;background:rgba(184,146,61,.25)"></span><span style="color:var(--gold);font-size:11px">&#9670;</span><span style="flex:1;height:1px;background:rgba(184,146,61,.25)"></span></div>';
+
+  // JOUR PAR JOUR : cartes cliquables renvoyant aux journees
+  H+='<div style="font-size:11px;font-weight:700;color:'+ch.color+';letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">Jour par jour</div>';
+  var cityDays=DYS.filter(function(dd){return dd.chap===ch.id;});
+  cityDays.forEach(function(day){
+    var parts=day.label.split(" - ");
+    var ds=parts[0]||day.date;
+    H+='<div class="dc" style="margin-bottom:11px" onclick="openDay('+day.id+')">';
+    H+='<div class="dc-top">';
+    H+='<div class="db" style="background:'+ch.color+'"><span class="db-j">JOUR</span><span class="db-n">'+day.dayNum+'</span></div>';
+    H+='<div class="di"><div class="di-d">'+e(day.date)+'</div><div class="di-l">'+e(day.location)+'</div></div>';
+    H+='<div style="margin-left:auto;color:'+ch.color+';font-size:20px;flex-shrink:0">&#8250;</div>';
+    H+='</div></div>';
+  });
+
+  H+='</div>';
+
+  document.getElementById("cic").innerHTML=H;
+  showS("ci");
+  document.getElementById("main").scrollTop=0;
 }
 
 function openDay(id){
