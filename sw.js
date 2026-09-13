@@ -1,5 +1,5 @@
-// Version : 13/09/2026 à 21:25
-const CACHE_VERSION = 'madrid-2026-09-13-2125';
+// Version : 13/09/2026 à 22:25
+const CACHE_VERSION = 'madrid-2026-09-13-2225';
 const PRECACHE_URLS = [
   './',
   './index.html',
