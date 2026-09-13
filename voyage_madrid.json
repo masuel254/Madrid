@@ -441,27 +441,6 @@
         "detail": "Iberdrola Music, Villaverde - Ouverture 20h30 - Arriver au moins 1h avant - billet hors-ligne",
         "deadline": "Billet reserve",
         "color": "#C8573F"
-      },
-      {
-        "date": "18 SEPT",
-        "name": "Parking aeroport Charleroi (longue duree)",
-        "detail": "Reserver en ligne a l avance (bien moins cher) - du 18 au 21/09 - navette terminal",
-        "deadline": "A reserver avant le depart",
-        "color": "#777"
-      },
-      {
-        "date": "19 SEPT",
-        "name": "Palais Royal de Madrid",
-        "detail": "patrimonionacional.es - environ 14 EUR - reserver en ligne pour eviter la file",
-        "deadline": "Reserver quelques jours avant",
-        "color": "#5B3A7E"
-      },
-      {
-        "date": "20 SEPT",
-        "name": "Musee du Prado",
-        "detail": "museodelprado.es - environ 15 EUR - creneau horaire conseille",
-        "deadline": "Reserver quelques jours avant",
-        "color": "#2A6B7C"
       }
     ],
     "PHRASES": [
