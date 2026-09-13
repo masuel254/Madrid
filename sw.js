@@ -10,9 +10,11 @@
 //  Pas besoin de connaitre la version precedente : une date plus
 //  recente est toujours consideree comme une nouvelle version.
 //  L'ancien cache est automatiquement supprime.
+//
+//  Version : 13/06/2026 à 21:20
 // ============================================================
 
-const CACHE_VERSION = 'madrid-2026-07-31-1600';
+const CACHE_VERSION = 'madrid-2026-06-13-2120';
 
 // Fichiers mis en cache pour le hors-ligne
 const ASSETS = [
